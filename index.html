@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0e">
+<meta name="color-scheme" content="dark">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>دخانیات اوستا | فروشگاه تخصصی سیگار و دخانیات لوکس</title>
+<meta name="description" content="سامانه فروش و حسابداری دخانیات اوستا — فروش انواع سیگار مارلبرو، وینستون، بهمن، کنت، پارلمان و برندهای لوکس با فاکتور رسمی و دفتر نسیه.">
+
+<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"دخانیات اوستا","short_name":"اوستا","description":"سامانه مدیریت فروش دخانیات","start_url":".","display":"standalone","orientation":"portrait","background_color":"%230a0a0e","theme_color":"%230a0a0e","lang":"fa","dir":"rtl","categories":["business","shopping"]}'>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/vazirmatn@latest/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/vazirmatn@latest/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/vazirmatn@latest/900.css">
+
+<style>
+:root{
+  --bg:#0a0a0e; --panel:rgba(255,255,255,.035);
+  --line:rgba(212,175,55,.22); --line2:rgba(212,175,55,.4);
+  --gold:#d4af37; --gold2:#f6d365; --ember:#ff6b35;
+  --text:#f2ead8; --muted:#9a927e; --red:#f4212e; --green:#00ba7c;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.app{max-width:1150px;margin:0 auto;padding:14px;position:relative;z-index:1}
+header{display:flex;align-items:center;gap:14px;padding:14px 6px 18px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.htxt h1{font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--gold2),var(--gold) 55%,var(--ember));-webkit-background-clip:text;background-clip:text;color:transparent}
+.htxt small{color:var(--muted);font-size:11px}
+.hdate{margin-right:auto;text-align:left;color:var(--muted);font-size:11px;line-height:1.8}
+.tabs{display:flex;gap:6px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:5px;margin-bottom:18px;overflow-x:auto}
+.tab{flex:1;padding:10px 12px;text-align:center;border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);transition:.25s;white-space:nowrap;border:none;background:none}
+.tab.active{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1408;box-shadow:0 4px 18px rgba(212,175,55,.35)}
+.page{display:none}.page.active{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+.stat .lb{color:var(--muted);font-size:11px;margin-bottom:6px}
+.stat .vl{font-size:20px;font-weight:900;color:var(--gold2)}
+.stat .sb{font-size:10px;color:var(--ember);margin-top:4px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.card-t{font-size:15px;font-weight:900;color:var(--gold2)}
+.btn{border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;font-family:inherit;transition:.2s;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1408}
+.btn.red{background:linear-gradient(135deg,#ff5b64,var(--red));color:#fff}
+.btn.green{background:linear-gradient(135deg,#2ee6a8,var(--green));color:#04110c}
+.btn.ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line)}
+input,select{background:#0e0e14;border:1px solid var(--line);color:var(--text);padding:9px 12px;border-radius:10px;font-family:inherit;font-size:12px;width:100%}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:10px}
+.form-row label{display:block;font-size:10px;color:var(--muted);margin-bottom:4px}
+.iconbtn{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--gold2);cursor:pointer;font-size:13px;transition:.2s}
+.iconbtn.danger{color:#ff7b84}
+.brand{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;background:rgba(255,255,255,.02)}
+.bhead{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
+.binfo{flex:1;min-width:0}
+.binfo b{font-size:14px;display:block}
+.binfo small{color:var(--muted);font-size:10px}
+.bstock{font-size:11px;color:var(--gold2);background:rgba(212,175,55,.1);border:1px solid var(--line);padding:2px 8px;border-radius:20px}
+.bbody{display:none;padding:10px 14px;border-top:1px dashed var(--line)}
+.brand.open .bbody{display:block}
+.mrow{display:grid;grid-template-columns:minmax(120px,1.5fr) repeat(3,minmax(70px,1fr)) auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(212,175,55,.1)}
+.mrow.sale{grid-template-columns:minmax(130px,1.5fr) auto auto auto}
+.chip{width:12px;height:12px;border-radius:50%;display:inline-block;margin-left:6px;background:var(--c)}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:9px 8px;text-align:right;border-bottom:1px solid rgba(212,175,55,.12)}
+th{color:var(--muted);font-size:10px}
+.citem{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(212,175,55,.15);font-size:12px}
+.total-bar{background:rgba(212,175,55,.1);border:1px solid var(--line2);padding:12px;border-radius:10px;margin-top:10px;display:flex;justify-content:space-between;font-weight:900;color:var(--gold2)}
+.search{margin-bottom:12px}
+@media print{
+  body>*{display:none!important}
+  #printSheet{display:block!important;color:#000;padding:20px}
+  #printSheet table{width:100%;border-collapse:collapse;margin:10px 0}
+  #printSheet th,#printSheet td{border:1px solid #999;padding:6px;text-align:right;color:#000}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="htxt"><h1>دخانیات اوستا</h1><small>مدیریت فروش، انبار و نسیه (آفلاین / لوکال)</small></div>
+  <div class="hdate" id="hDate"></div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-page="dashboard">📊 داشبورد</button>
+  <button class="tab" data-page="products">📦 انبار و محصولات</button>
+  <button class="tab" data-page="sales">🛒 صدور فاکتور</button>
+  <button class="tab" data-page="debtors">💳 دفتر نسیه</button>
+  <button class="tab" data-page="reports">📈 گزارشات و پشتیبان</button>
+</nav>
+
+<div class="page active" id="dashboard">
+  <div class="stats-grid">
+    <div class="stat"><div class="lb">فروش امروز</div><div class="vl" id="dToday">۰</div><div class="sb" id="dTodayCnt">۰ فاکتور</div></div>
+    <div class="stat"><div class="lb">سود امروز</div><div class="vl" id="dProfit">۰</div></div>
+    <div class="stat"><div class="lb">ارزش کل موجودی</div><div class="vl" id="dStock">۰</div></div>
+    <div class="stat"><div class="lb">کل مطالبات نسیه</div><div class="vl" id="dDebt">۰</div></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><div class="card-t">🕐 آخرین فاکتورهای ثبت‌شده</div></div>
+    <div class="tblwrap"><table><thead><tr><th>شماره</th><th>زمان</th><th>مبلغ</th><th>روش پرداخت</th></tr></thead><tbody id="dRecent"></tbody></table></div>
+  </div>
+</div>
+
+<div class="page" id="products">
+  <div class="card">
+    <div class="card-h">
+      <div class="card-t">📦 لیست کالاها</div>
+      <button class="btn" onclick="addBrandPrompt()">➕ افزودن برند</button>
+    </div>
+    <div class="search"><input id="pSearch" placeholder="جستجوی برند یا مدل..." oninput="renderProducts()"></div>
+    <div id="brandAccordion"></div>
+  </div>
+</div>
+
+<div class="page" id="sales">
+  <div class="card">
+    <div class="card-h"><div class="card-t">🚬 انتخاب سیگار جهت فروش</div></div>
+    <div class="search"><input id="sSearch" placeholder="جستجوی سریع کالا..." oninput="renderSalesPicker()"></div>
+    <div id="salesPicker" style="max-height:280px;overflow-y:auto"></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><div class="card-t">🧺 سبد فاکتور جاری</div><button class="btn red" onclick="clearCart()">خالی کردن</button></div>
+    <div id="cartList"></div>
+    <div class="total-bar"><span>مبلغ نهایی:</span><span id="cartTotal">۰ تومان</span></div>
+    <div class="form-row" style="margin-top:12px">
+      <div><label>روش پرداخت</label>
+        <select id="payType" onchange="toggleDebtor()">
+          <option value="cash">نقدی</option><option value="card">کارت‌خوان</option><option value="debt">نسیه (دفترچه)</option>
+        </select>
+      </div>
+      <div id="debtorBox" style="display:none"><label>نام طرف حساب</label><input id="debtorName" placeholder="نام مشتری"></div>
+    </div>
+    <button class="btn green" style="width:100%;padding:14px;font-size:14px;margin-top:6px" onclick="checkout()">✅ ثبت نهایی فاکتور</button>
+  </div>
+</div>
+
+<div class="page" id="debtors">
+  <div class="card">
+    <div class="card-h"><div class="card-t">➕ ثبت دستی بدهی متفرقه</div></div>
+    <div class="form-row">
+      <div><label>نام طرف حساب</label><input id="ndName" placeholder="نام"></div>
+      <div><label>مبلغ (تومان)</label><input type="number" id="ndAmount" placeholder="0"></div>
+      <div style="display:flex;align-items:flex-end"><button class="btn" onclick="addManualDebt()">ثبت بدهی</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-h"><div class="card-t">📒 دفترچه حساب نسیه</div></div>
+    <div class="tblwrap"><table><thead><tr><th>نام بدهکار</th><th>مانده بدهی</th><th>عملیات تسویه</th></tr></thead><tbody id="debtTbl"></tbody></table></div>
+  </div>
+</div>
+
+<div class="page" id="reports">
+  <div class="card">
+    <div class="card-h"><div class="card-t">💾 پشتیبان‌گیری و حفاظت از داده‌ها</div></div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">اطلاعات شما در مرورگر گوشی ذخیره می‌شود. جهت امنیت حتماً بکاپ دانلود کنید.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn" onclick="exportJSON()">📥 دانلود فایل پشتیبان (JSON)</button>
+      <button class="btn ghost" onclick="document.getElementById('importFile').click()">📤 بازیابی پشتیبان</button>
+      <input type="file" id="importFile" style="display:none" onchange="importJSON(event)">
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-h"><div class="card-t">🗃️ سوابق کلی فروش</div></div>
+    <div class="tblwrap"><table><thead><tr><th>شماره</th><th>تاریخ</th><th>مبلغ</th><th>نوع</th></tr></thead><tbody id="rHist"></tbody></table></div>
+  </div>
+</div>
+</div>
+
+<div id="printSheet" style="display:none"></div>
+
+<script>
+const DEFAULT_CONFIG = [
+ {brand:"وینستون",accent:"#c0392b",models:[
+   {id:"win-red",name:"وینستون قرمز",color:"قرمز",hex:"#e74c3c",buy:125000,sell:145000,stock:50},
+   {id:"win-blue",name:"وینستون آبی",color:"آبی",hex:"#3498db",buy:125000,sell:140000,stock:40},
+   {id:"win-silver",name:"وینستون نقره‌ای",color:"نقره‌ای",hex:"#bdc3c7",buy:125000,sell:140000,stock:30}]},
+ {brand:"مارلبرو",accent:"#d7263d",models:[
+   {id:"mar-red",name:"مارلبرو قرمز",color:"قرمز",hex:"#d7263d",buy:160000,sell:180000,stock:30},
+   {id:"mar-gold",name:"مارلبرو طلایی",color:"طلایی",hex:"#d4af37",buy:160000,sell:180000,stock:25}]},
+ {brand:"بهمن",accent:"#2563eb",models:[
+   {id:"bah-blue",name:"بهمن آبی",color:"آبی",hex:"#2563eb",buy:105000,sell:120000,stock:40},
+   {id:"bah-white",name:"بهمن سفید",color:"سفید",hex:"#e5e7eb",buy:105000,sell:120000,stock:30}]}
+];
+
+let products = JSON.parse(localStorage.getItem('osta_products')) || DEFAULT_CONFIG;
+let sales    = JSON.parse(localStorage.getItem('osta_sales')) || [];
+let debtors  = JSON.parse(localStorage.getItem('osta_debtors')) || [];
+let cart = [];
+let openBrands = new Set();
+
+function save(){
+  localStorage.setItem('osta_products', JSON.stringify(products));
+  localStorage.setItem('osta_sales', JSON.stringify(sales));
+  localStorage.setItem('osta_debtors', JSON.stringify(debtors));
+}
+
+const fa = n => String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const money = n => fa(Number(n||0).toLocaleString('en-US'))+' ت';
+
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); 
+  document.getElementById(t.dataset.page).classList.add('active');
+  if(t.dataset.page === 'dashboard') renderDashboard();
+  if(t.dataset.page === 'products') renderProducts();
+  if(t.dataset.page === 'sales') renderSalesPicker();
+  if(t.dataset.page === 'debtors') renderDebtors();
+  if(t.dataset.page === 'reports') renderReports();
+}));
+
+function renderDashboard(){
+  const today = new Date().toISOString().split('T')[0];
+  const tSales = sales.filter(s=>s.date.startsWith(today));
+  const tTotal = tSales.reduce((sum,s)=>sum+s.total,0);
+  const tProfit = tSales.reduce((sum,s)=>sum+s.profit,0);
+  const stockVal = products.reduce((acc,b)=>acc+b.models.reduce((macc,m)=>macc+(m.stock*m.buy),0),0);
+  const debtTotal = debtors.reduce((sum,d)=>sum+d.amount,0);
+
+  document.getElementById('dToday').innerText = money(tTotal);
+  document.getElementById('dTodayCnt').innerText = fa(tSales.length) + ' فاکتور';
+  document.getElementById('dProfit').innerText = money(tProfit);
+  document.getElementById('dStock').innerText = money(stockVal);
+  document.getElementById('dDebt').innerText = money(debtTotal);
+
+  const tb = document.getElementById('dRecent');
+  tb.innerHTML = sales.slice(-5).reverse().map(s=>`
+    <tr><td>#${s.id}</td><td>${s.time}</td><td>${money(s.total)}</td><td>${s.pay==='cash'?'نقد':s.pay==='card'?'کارت':'نسیه'}</td></tr>
+  `).join('');
+}
+
+function renderProducts(){
+  const q = document.getElementById('pSearch').value.toLowerCase();
+  const c = document.getElementById('brandAccordion');
+  c.innerHTML = products.map((b,bi)=>{
+    const models = b.models.filter(m=>m.name.toLowerCase().includes(q));
+    if(q && !models.length) return '';
+    return `
+      <div class="brand ${openBrands.has(bi)?'open':''}">
+        <div class="bhead" onclick="toggleB(${bi})">
+          <div class="binfo"><b>${b.brand}</b><small>${b.models.length} مدل</small></div>
+          <span class="bstock">${b.models.reduce((s,m)=>s+Number(m.stock),0)} عدد</span>
+        </div>
+        <div class="bbody">
+          ${models.map((m,mi)=>`
+            <div class="mrow">
+              <div><span class="chip" style="--c:${m.hex}"></span>${m.name}</div>
+              <div>خرید: <input type="number" value="${m.buy}" onchange="editM(${bi},${mi},'buy',this.value)"></div>
+              <div>فروش: <input type="number" value="${m.sell}" onchange="editM(${bi},${mi},'sell',this.value)"></div>
+              <div>موجودی: <input type="number" value="${m.stock}" onchange="editM(${bi},${mi},'stock',this.value)"></div>
+              <button class="iconbtn danger" onclick="delM(${bi},${mi})">×</button>
+            </div>
+          `).join('')}
+          <button class="btn ghost" style="margin-top:8px" onclick="addModelPrompt(${bi})">➕ افزودن مدل به ${b.brand}</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleB(i){ openBrands.has(i)?openBrands.delete(i):openBrands.add(i); renderProducts(); }
+function editM(bi,mi,field,val){ products[bi].models[mi][field] = Number(val); save(); renderDashboard(); }
+function delM(bi,mi){ products[bi].models.splice(mi,1); save(); renderProducts(); }
+
+function addBrandPrompt(){
+  const name = prompt("نام برند جدید:");
+  if(name){ products.push({brand:name,accent:"#d4af37",models:[]}); save(); renderProducts(); }
+}
+function addModelPrompt(bi){
+  const name = prompt("نام مدل:");
+  const sell = Number(prompt("قیمت فروش (تومان):")||0);
+  const buy = Number(prompt("قیمت خرید (تومان):")||0);
+  const stock = Number(prompt("تعداد موجودی اولیه:")||0);
+  if(name){
+    products[bi].models.push({id:'m_'+Date.now(),name,color:'پیش‌فرض',hex:'#d4af37',buy,sell,stock});
+    save(); renderProducts();
+  }
+}
+
+function renderSalesPicker(){
+  const q = document.getElementById('sSearch').value.toLowerCase();
+  const c = document.getElementById('salesPicker');
+  const allM = [];
+  products.forEach((b,bi)=>b.models.forEach((m,mi)=>{
+    if(!q || m.name.toLowerCase().includes(q)) allM.push({bi,mi,...m});
+  }));
+  c.innerHTML = allM.map(m=>`
+    <div class="citem">
+      <div><b>${m.name}</b> <small style="color:var(--gold2)">(${money(m.sell)})</small> <span style="font-size:10px;color:var(--muted)">موجودی: ${m.stock}</span></div>
+      <button class="btn" style="padding:4px 10px" onclick="addToCart('${m.id}')">➕</button>
+    </div>
+  `).join('');
+}
+
+function addToCart(id){
+  let model;
+  products.forEach(b=>b.models.forEach(m=>{ if(m.id===id) model=m; }));
+  if(!model || model.stock <= 0){ alert("موجودی این کالا به اتمام رسیده است."); return; }
+  const item = cart.find(x=>x.id===id);
+  if(item){
+    if(item.qty < model.stock) item.qty++;
+    else alert("سقف موجودی انبار پر شد.");
+  } else {
+    cart.push({...model, qty:1});
+  }
+  renderCart();
+}
+
+function renderCart(){
+  const c = document.getElementById('cartList');
+  c.innerHTML = cart.map((item,i)=>`
+    <div class="citem">
+      <div>${item.name} (${money(item.sell)})</div>
+      <div>
+        <button class="iconbtn" onclick="changeQty(${i},-1)">-</button>
+        <span style="padding:0 8px">${fa(item.qty)}</span>
+        <button class="iconbtn" onclick="changeQty(${i},1)">+</button>
+      </div>
+    </div>
+  `).join('');
+  const tot = cart.reduce((s,i)=>s+(i.sell*i.qty),0);
+  document.getElementById('cartTotal').innerText = money(tot);
+}
+
+function changeQty(i,delta){
+  cart[i].qty += delta;
+  if(cart[i].qty <= 0) cart.splice(i,1);
+  renderCart();
+}
+function clearCart(){ cart=[]; renderCart(); }
+
+function toggleDebtor(){
+  document.getElementById('debtorBox').style.display = document.getElementById('payType').value === 'debt' ? 'block' : 'none';
+}
+
+function checkout(){
+  if(!cart.length){ alert("سبد خرید خالی است."); return; }
+  const pay = document.getElementById('payType').value;
+  const debtorName = document.getElementById('debtorName').value.trim();
+  if(pay === 'debt' && !debtorName){ alert("لطفاً نام بدهکار را وارد کنید."); return; }
+
+  const total = cart.reduce((s,i)=>s+(i.sell*i.qty),0);
+  const profit = cart.reduce((s,i)=>s+((i.sell - i.buy)*i.qty),0);
+
+  cart.forEach(cItem=>{
+    products.forEach(b=>b.models.forEach(m=>{
+      if(m.id===cItem.id) m.stock -= cItem.qty;
+    }));
+  });
+
+  const now = new Date();
+  const tx = {
+    id: Date.now().toString().slice(-4),
+    date: now.toISOString(),
+    time: now.toLocaleTimeString('fa-IR'),
+    total,
+    profit,
+    pay,
+    debtor: debtorName || null,
+    items: [...cart]
+  };
+  sales.push(tx);
+
+  if(pay === 'debt'){
+    const d = debtors.find(x=>x.name===debtorName);
+    if(d) d.amount += total;
+    else debtors.push({name:debtorName, amount:total});
+  }
+
+  save();
+  clearCart();
+  alert("فاکتور با موفقیت صادر شد.");
+  renderDashboard();
+}
+
+function renderDebtors(){
+  const tb = document.getElementById('debtTbl');
+  tb.innerHTML = debtors.map((d,i)=>`
+    <tr>
+      <td><b>${d.name}</b></td>
+      <td style="color:var(--gold2)">${money(d.amount)}</td>
+      <td><button class="btn green" style="padding:4px 8px;font-size:10px" onclick="settleDebt(${i})">تسویه حساب</button></td>
+    </tr>
+  `).join('');
+}
+
+function settleDebt(i){
+  const amount = Number(prompt(`مبلغ دریافتی از ${debtors[i].name} را وارد کنید:`)||0);
+  if(amount > 0){
+    debtors[i].amount -= amount;
+    if(debtors[i].amount <= 0) debtors.splice(i,1);
+    save(); renderDebtors(); renderDashboard();
+  }
+}
+
+function addManualDebt(){
+  const name = document.getElementById('ndName').value.trim();
+  const amount = Number(document.getElementById('ndAmount').value||0);
+  if(name && amount > 0){
+    const d = debtors.find(x=>x.name===name);
+    if(d) d.amount += amount;
+    else debtors.push({name, amount});
+    save(); renderDebtors(); renderDashboard();
+    document.getElementById('ndName').value = '';
+    document.getElementById('ndAmount').value = '';
+  }
+}
+
+function exportJSON(){
+  const data = JSON.stringify({products,sales,debtors});
+  const blob = new Blob([data], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `osta_backup_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+}
+
+function importJSON(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = evt => {
+    try {
+      const data = JSON.parse(evt.target.result);
+      if(data.products && data.sales) {
+        products = data.products;
+        sales = data.sales;
+        debtors = data.debtors || [];
+        save();
+        alert("داده‌ها با موفقیت بازیابی شدند.");
+        location.reload();
+      }
+    } catch(err){ alert("فایل پشتیبان معتبر نیست."); }
+  };
+  reader.readAsText(file);
+}
+
+function renderReports(){
+  const tb = document.getElementById('rHist');
+  tb.innerHTML = sales.slice().reverse().map(s=>`
+    <tr><td>#${s.id}</td><td>${s.time}</td><td>${money(s.total)}</td><td>${s.pay==='cash'?'نقد':s.pay==='card'?'کارت':'نسیه'}</td></tr>
+  `).join('');
+}
+
+document.getElementById('hDate').innerText = new Date().toLocaleDateString('fa-IR');
+renderDashboard();
+</script>
+</body>
+</html>
