@@ -32,7 +32,6 @@ h1 { font-size:22px; font-weight:900; background:linear-gradient(135deg,var(--go
 
 .backup-alert { background:rgba(255,152,0,0.15); border:1px solid var(--warn); color:#ffc107; padding:10px 14px; border-radius:10px; margin-bottom:12px; font-size:12px; display:none; justify-content:space-between; align-items:center; }
 
-/* کلیدهای ناوبری دو ردیفه دقیق */
 .nav-container { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
 .nav-row { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; }
 .nav-row.three-col { grid-template-columns:repeat(3, 1fr); }
@@ -69,14 +68,26 @@ input, select { background:#111118; border:1px solid var(--line); color:var(--te
 .radio-group label { display:flex; align-items:center; gap:5px; cursor:pointer; }
 .radio-group input { width:auto; cursor:pointer; }
 
-.brand-badge { width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:900; color:#fff; margin-left:6px; flex-shrink:0; vertical-align:middle; }
-.brand-winston { background:#b71c1c; border:1px solid #ff7961; }
-.brand-marlboro { background:#d32f2f; border:1px solid #ffcdd2; color:#fff; }
-.brand-bahman { background:#1565c0; border:1px solid #90caf9; }
-.brand-kent { background:#00695c; border:1px solid #80cbc4; }
-.brand-other { background:#424242; border:1px solid #bdbdbd; }
+/* آیکون و نشانگر برندها */
+.brand-badge { width:24px; height:24px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:900; color:#fff; margin-left:6px; flex-shrink:0; vertical-align:middle; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
+.b-winston { background:linear-gradient(135deg,#c62828,#e53935); border:1px solid #ff8a80; }
+.b-marlboro { background:linear-gradient(135deg,#d50000,#ff1744); border:1px solid #ff8a80; }
+.b-kent { background:linear-gradient(135deg,#00695c,#00897b); border:1px solid #80cbc4; }
+.b-bahman { background:linear-gradient(135deg,#0d47a1,#1976d2); border:1px solid #90caf9; }
+.b-senator { background:linear-gradient(135deg,#4a148c,#6a1b9a); border:1px solid #ce93d8; }
+.b-captain { background:linear-gradient(135deg,#3e2723,#4e342e); border:1px solid #bcaaa4; }
+.b-esse { background:linear-gradient(135deg,#00838f,#00acc1); border:1px solid #80deea; }
+.b-magna { background:linear-gradient(135deg,#b71c1c,#880e4f); border:1px solid #ff80ab; }
+.b-fakher { background:linear-gradient(135deg,#bf360c,#d84315); border:1px solid #ffab91; }
+.b-mazaya { background:linear-gradient(135deg,#2e7d32,#388e3c); border:1px solid #a5d6a7; }
+.b-adalya { background:linear-gradient(135deg,#c2185b,#ad1457); border:1px solid #f48fb1; }
+.b-clipper { background:linear-gradient(135deg,#f57f17,#fbc02d); color:#000; border:1px solid #fff59d; }
+.b-zippo { background:linear-gradient(135deg,#37474f,#263238); border:1px solid #b0bec5; }
+.b-charcoal { background:linear-gradient(135deg,#212121,#424242); border:1px solid #757575; }
+.b-hookah { background:linear-gradient(135deg,#ff6f00,#ff8f00); border:1px solid #ffe082; }
+.b-other { background:#2a2a35; border:1px solid #555; }
 
-.item-row { display:grid; grid-template-columns:1.4fr 1fr 0.8fr 1.2fr 0.8fr auto; gap:6px; align-items:center; padding:8px 0; border-bottom:1px dashed rgba(212,175,55,0.15); font-size:12px; }
+.item-row { display:grid; grid-template-columns:1.5fr 1fr 0.8fr 1.2fr 0.8fr auto; gap:6px; align-items:center; padding:8px 0; border-bottom:1px dashed rgba(212,175,55,0.15); font-size:12px; }
 .tblwrap { overflow-x:auto; }
 table { width:100%; border-collapse:collapse; font-size:12px; }
 th, td { padding:8px; text-align:right; border-bottom:1px solid rgba(212,175,55,0.12); }
@@ -85,19 +96,45 @@ th { color:var(--muted); font-size:11px; }
 .citem { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed rgba(212,175,55,0.15); }
 .total-box { background:rgba(212,175,55,0.1); border:1px solid var(--line2); padding:10px 14px; border-radius:10px; margin-top:10px; display:flex; justify-content:space-between; font-weight:900; color:var(--gold2); }
 
-/* مودال اختصاصی برنامه دخانیات اوستا */
 .modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:9999; padding:16px; }
 .modal-box { background:#16161f; border:1px solid var(--line2); border-radius:14px; padding:16px; width:100%; max-width:400px; box-shadow:0 8px 30px rgba(0,0,0,0.8); }
-.modal-title { font-size:14px; font-weight:900; color:var(--gold2); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+.modal-title { font-size:14px; font-weight:900; color:var(--gold2); margin-bottom:10px; }
 .modal-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
 
+/* استایل مخصوص چاپ و پرینت استاندارد فاکتورها */
+#printArea { display:none; }
 @media print {
   body > * { display:none !important; }
-  #printArea { display:block !important; color:#000; padding:20px; font-size:13px; }
-  #printArea table { width:100%; border-collapse:collapse; margin-top:10px; }
-  #printArea th, #printArea td { border:1px solid #444; padding:8px; text-align:right; color:#000; }
-  #printArea h2 { text-align:center; margin-bottom:6px; }
-  #printArea p { font-size:11px; color:#333; margin-bottom:12px; }
+  #printArea { display:block !important; color:#000 !important; background:#fff !important; padding:15px; font-size:12px; }
+  .receipt-box { 
+    border: 1.5px solid #222; 
+    border-radius: 8px; 
+    padding: 12px 16px; 
+    margin-bottom: 22px; 
+    page-break-inside: avoid; 
+    background: #fff;
+  }
+  .receipt-header { 
+    text-align: center; 
+    border-bottom: 1px dashed #444; 
+    padding-bottom: 8px; 
+    margin-bottom: 10px; 
+  }
+  .receipt-header h2 { font-size: 16px; margin-bottom: 4px; font-weight: 900; }
+  .receipt-meta { display:flex; justify-content: space-between; font-size: 11px; margin-top: 4px; }
+  .receipt-box table { width:100%; border-collapse:collapse; margin-top:8px; }
+  .receipt-box th, .receipt-box td { border-bottom: 1px solid #ddd; padding: 6px 4px; font-size: 11px; text-align: right; }
+  .receipt-box th { background: #f2f2f2; font-weight: bold; }
+  .receipt-footer { display:flex; justify-content:space-between; margin-top:10px; font-weight:bold; font-size:12px; border-top:1px dashed #444; padding-top:6px; }
+  .cut-divider { 
+    text-align: center; 
+    font-size: 10px; 
+    color: #666; 
+    margin: 14px 0 24px 0; 
+    border-bottom: 1px dashed #aaa; 
+    line-height: 0.1em; 
+  }
+  .cut-divider span { background:#fff; padding:0 10px; }
 }
 </style>
 </head>
@@ -111,13 +148,11 @@ th { color:var(--muted); font-size:11px; }
     <div id="curDate" style="font-size:11px; color:var(--muted); text-align:left;"></div>
   </header>
 
-  <!-- هشدار بک‌آپ هفتگی -->
   <div class="backup-alert" id="backupWeeklyAlert">
-    <span>⚠️ از آخرین نسخه پشتیبان بیش از ۷ روز گذشته است!</span>
-    <button class="btn sm" onclick="exportData()">📥 دانلود فایل پشتیبان</button>
+    <span>⚠️ بیش از ۷ روز از آخرین پشتیبان‌گیری گذشته است!</span>
+    <button class="btn sm" onclick="exportData()">📥 دریافت پشتیبان</button>
   </div>
 
-  <!-- منوی کلیدها در دو ردیف مرتب و زیر هم -->
   <div class="nav-container">
     <div class="nav-row">
       <button class="tab active" data-page="dash">📊 صفحه اصلی</button>
@@ -132,15 +167,14 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
-  <!-- صفحه اصلی -->
   <div class="page active" id="dash">
     <div class="quick-box">
       <div style="font-weight:bold; font-size:13px; color:var(--gold2);">⚡ ثبت سریع فروش / نسیه با پیام صوتی یا متن:</div>
-      <input id="quickOrderInput" placeholder="مثال: ۱ پاکت وینستون آبی یا 2 بسته الفاخر دوسیب..." />
+      <input id="quickOrderInput" placeholder="مثال: ۱ پاکت وینستون لایت یا 2 بسته الفاخر دوسیب..." />
       
       <div class="radio-group">
         <label><input type="radio" name="quickPay" value="cash" checked onchange="toggleQuickDebtor()"> 🟢 خرید نقدی / کارت‌خوان</label>
-        <label><input type="radio" name="quickPay" value="debt" onchange="toggleQuickDebtor()"> 🔴 نسیه (حساب مشتری)</label>
+        <label><input type="radio" name="quickPay" value="debt" onchange="toggleQuickDebtor()"> 🔴 نسیه (حساب بدهکار)</label>
       </div>
 
       <div id="quickDebtorWrap" style="display:none;">
@@ -160,18 +194,20 @@ th { color:var(--muted); font-size:11px; }
     <div class="card">
       <div class="card-h">
         <div class="card-t">🕐 آخرین فاکتورهای ثبت شده</div>
-        <button class="btn sm" onclick="printAllInvoices()">🖨️ چاپ کل فاکتورها (PDF)</button>
+        <div style="display:flex; gap:6px;">
+          <button class="btn sm" onclick="printAllInvoices()">🖨️ چاپ شیک همه فاکتورها (PDF)</button>
+          <button class="btn sm red" onclick="clearAllInvoices()">🗑️ حذف همه فاکتورها</button>
+        </div>
       </div>
       <div class="tblwrap">
         <table>
-          <thead><tr><th>شماره</th><th>زمان</th><th>اقلام</th><th>مبلغ</th><th>روش پرداخت</th><th>عملیات</th></tr></thead>
+          <thead><tr><th>شماره</th><th>تاریخ و ساعت</th><th>اقلام</th><th>مبلغ</th><th>روش پرداخت</th><th>عملیات</th></tr></thead>
           <tbody id="dRecentTbl"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- خرید مغازه‌دار (محاسبات خودکار خرید، درصد سود و قیمت فروش) -->
   <div class="page" id="newstock">
     <div class="card">
       <div class="card-h"><div class="card-t">📥 ورود بار و خرید جدید مغازه‌دار</div></div>
@@ -179,11 +215,12 @@ th { color:var(--muted); font-size:11px; }
         <div>
           <label style="font-size:10px; color:var(--muted)">دسته‌بندی کالا</label>
           <select id="newCat">
-            <option value="cig">سیگار (Cigarette)</option>
-            <option value="tobacco">تنباکو (Tobacco)</option>
-            <option value="lighter">فندک (Lighter)</option>
-            <option value="pipe">توتون (Pipe)</option>
-            <option value="perfume">عود و ادکلن</option>
+            <option value="cig">سیگارها (Cigarettes)</option>
+            <option value="tobacco">تنباکو قلیان (Tobacco)</option>
+            <option value="hookah_coal">قلیون / ذغال (Hookah &amp; Charcoal)</option>
+            <option value="lighter">فندک و ملزومات (Lighters)</option>
+            <option value="pipe">توتون پیپ و پیچ (Pipe &amp; Rolling)</option>
+            <option value="perfume">عود و خوشبوکننده (Incense)</option>
           </select>
         </div>
         <div>
@@ -194,18 +231,18 @@ th { color:var(--muted); font-size:11px; }
 
       <div class="form-row">
         <div>
-          <label style="font-size:10px; color:var(--muted)">مدل / طعم / سایز</label>
+          <label style="font-size:10px; color:var(--muted)">مدل / طعم / مشخصه</label>
           <input id="newModel" placeholder="مثال: لایت آبی / دوسیب" />
         </div>
         <div>
-          <label style="font-size:10px; color:var(--muted)">تعداد بسته / پاکت</label>
+          <label style="font-size:10px; color:var(--muted)">تعداد بسته / پاکت / عدد</label>
           <input type="number" id="newQty" placeholder="مثال: 30" />
         </div>
       </div>
 
       <div class="form-row">
         <div>
-          <label style="font-size:10px; color:var(--muted)">قیمت خرید هر بسته (تومان)</label>
+          <label style="font-size:10px; color:var(--muted)">قیمت خرید هر واحد (تومان)</label>
           <input type="number" id="newBuyPrice" placeholder="مثال: 100000" oninput="calcNewProductSell('buy')" />
         </div>
         <div>
@@ -222,18 +259,18 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
-  <!-- فروش دستی -->
   <div class="page" id="pos">
     <div class="sub-tabs">
       <button class="sub-tab active" onclick="switchPosCat('cig', this)">🚬 سیگارها</button>
       <button class="sub-tab" onclick="switchPosCat('tobacco', this)">🍃 تنباکو</button>
+      <button class="sub-tab" onclick="switchPosCat('hookah_coal', this)">💨 قلیون / ذغال</button>
       <button class="sub-tab" onclick="switchPosCat('lighter', this)">🔥 فندک</button>
       <button class="sub-tab" onclick="switchPosCat('pipe', this)">🍂 توتون</button>
-      <button class="sub-tab" onclick="switchPosCat('perfume', this)">✨ عود و ادکلن</button>
+      <button class="sub-tab" onclick="switchPosCat('perfume', this)">✨ عود</button>
     </div>
     <div class="card">
-      <input id="posSearch" placeholder="جستجوی سریع کالا (فارسی یا انگلیسی)..." oninput="renderPosPicker()" style="margin-bottom:10px;">
-      <div id="posPicker" style="max-height:220px; overflow-y:auto;"></div>
+      <input id="posSearch" placeholder="جستجوی سریع کالا (فارسی یا English)..." oninput="renderPosPicker()" style="margin-bottom:10px;">
+      <div id="posPicker" style="max-height:240px; overflow-y:auto;"></div>
     </div>
     <div class="card">
       <div class="card-h">
@@ -259,41 +296,42 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
-  <!-- آرشیو فاکتورها -->
   <div class="page" id="invoices">
     <div class="card">
       <div class="card-h">
         <div class="card-t">🧾 آرشیو فاکتورها</div>
-        <button class="btn" onclick="printAllInvoices()">🖨️ چاپ فهرست فاکتورها (PDF)</button>
+        <div style="display:flex; gap:6px;">
+          <button class="btn" onclick="printAllInvoices()">🖨️ چاپ شیک همه فاکتورها (PDF)</button>
+          <button class="btn red" onclick="clearAllInvoices()">🗑️ حذف کامل فاکتورها</button>
+        </div>
       </div>
       <input id="invSearch" placeholder="جستجو با شماره فاکتور یا نام مشتری..." oninput="renderInvoices()" style="margin-bottom:10px;">
       <div class="tblwrap">
         <table>
-          <thead><tr><th>شماره</th><th>زمان</th><th>اقلام</th><th>مبلغ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+          <thead><tr><th>شماره</th><th>تاریخ و ساعت</th><th>اقلام</th><th>مبلغ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
           <tbody id="invoicesTbl"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- انبارداری -->
   <div class="page" id="stock">
     <div class="sub-tabs">
       <button class="sub-tab active" onclick="switchStockCat('cig', this)">🚬 سیگار</button>
       <button class="sub-tab" onclick="switchStockCat('tobacco', this)">🍃 تنباکو</button>
+      <button class="sub-tab" onclick="switchStockCat('hookah_coal', this)">💨 قلیون / ذغال</button>
       <button class="sub-tab" onclick="switchStockCat('lighter', this)">🔥 فندک</button>
       <button class="sub-tab" onclick="switchStockCat('pipe', this)">🍂 توتون</button>
-      <button class="sub-tab" onclick="switchStockCat('perfume', this)">✨ عود و ادکلن</button>
+      <button class="sub-tab" onclick="switchStockCat('perfume', this)">✨ عود</button>
     </div>
     <div class="card">
       <div class="card-h">
-        <div class="card-t" id="stockCatTitle">موجودی انبار (بر مبنای بسته)</div>
+        <div class="card-t" id="stockCatTitle">موجودی انبار</div>
       </div>
       <div id="stockList"></div>
     </div>
   </div>
 
-  <!-- دفتر نسیه -->
   <div class="page" id="debts">
     <div class="card">
       <div class="card-h">
@@ -309,13 +347,12 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
-  <!-- پشتیبان هفتگی -->
   <div class="page" id="backup">
     <div class="card">
       <div class="card-h"><div class="card-t">💾 مدیریت پشتیبان‌گیری هفتگی و حفظ داده‌ها</div></div>
       <p style="font-size:12px; line-height:22px; color:var(--muted); margin-bottom:14px;">
-        تمامی اطلاعات به صورت اختصاصی <b>فقط روی گوشی شما</b> ذخیره است و هیچ دسترسی خارجی وجود ندارد.<br>
-        توصیه می‌شود آخر هر هفته با زدن دکمه زیر فایل پشتیبان را در دستگاه یا تلگرام ذخیره کنید.
+        تمامی اطلاعات فقط روی گوشی شما ذخیره است و هیچ دسترسی خارجی وجود ندارد.<br>
+        توصیه می‌شود آخر هر هفته با زدن دکمه زیر فایل پشتیبان را دانلود کنید.
       </p>
 
       <div style="background:rgba(212,175,55,0.08); padding:10px 14px; border-radius:8px; border:1px solid var(--line); font-size:12px; margin-bottom:14px;">
@@ -331,7 +368,6 @@ th { color:var(--muted); font-size:11px; }
   </div>
 </div>
 
-<!-- مودال اختصاصی دخانیات اوستا (جایگزین پنجره‌های اخطار پیش‌فرض مرورگر) -->
 <div class="modal-overlay" id="customModal">
   <div class="modal-box">
     <div class="modal-title" id="modalTitle">دخانیات اوستا</div>
@@ -347,48 +383,82 @@ th { color:var(--muted); font-size:11px; }
 <div id="printArea"></div>
 
 <script>
+// دیتابیس کامل با برندها و لوگوهای تصویری
 const INITIAL_PRODUCTS = {
   cig: [
-    { id:"c1", brand:"وینستون", enBrand:"Winston", model:"قرمز کلاسیک", buy:100000, margin:15, sell:115000, stock:60, logoClass:"brand-winston", logoText:"W" },
-    { id:"c2", brand:"وینستون", enBrand:"Winston", model:"لایت آبی", buy:100000, margin:15, sell:115000, stock:50, logoClass:"brand-winston", logoText:"W" },
-    { id:"c3", brand:"مارلبرو", enBrand:"Marlboro", model:"رد (قرمز)", buy:150000, margin:20, sell:180000, stock:35, logoClass:"brand-marlboro", logoText:"M" },
-    { id:"c4", brand:"بهمن", enBrand:"Bahman", model:"کوچک سوئیسی", buy:90000, margin:15, sell:103500, stock:70, logoClass:"brand-bahman", logoText:"B" }
+    { id:"c1", brand:"وینستون", enBrand:"Winston", model:"لایت آبی (Lights)", buy:100000, margin:15, sell:115000, stock:50, logoClass:"b-winston", logoText:"WIN" },
+    { id:"c2", brand:"وینستون", enBrand:"Winston", model:"قرمز کلاسیک (Classic)", buy:100000, margin:15, sell:115000, stock:40, logoClass:"b-winston", logoText:"WIN" },
+    { id:"c3", brand:"وینستون", enBrand:"Winston", model:"ایکس‌استایل (XStyle)", buy:105000, margin:15, sell:120000, stock:30, logoClass:"b-winston", logoText:"WIN" },
+    { id:"c4", brand:"وینستون", enBrand:"Winston", model:"کستر سفید (Caster)", buy:110000, margin:18, sell:130000, stock:25, logoClass:"b-winston", logoText:"WIN" },
+    { id:"c5", brand:"مارلبرو", enBrand:"Marlboro", model:"رد قرمز (Red)", buy:150000, margin:20, sell:180000, stock:35, logoClass:"b-marlboro", logoText:"PM" },
+    { id:"c6", brand:"مارلبرو", enBrand:"Marlboro", model:"گلد طلایی (Gold)", buy:150000, margin:20, sell:180000, stock:30, logoClass:"b-marlboro", logoText:"PM" },
+    { id:"c7", brand:"مارلبرو", enBrand:"Marlboro", model:"تاچ مشکی (Touch)", buy:140000, margin:20, sell:168000, stock:20, logoClass:"b-marlboro", logoText:"PM" },
+    { id:"c8", brand:"کنت", enBrand:"Kent", model:"پاور سوئیچ نعنایی (Switch)", buy:95000, margin:15, sell:110000, stock:40, logoClass:"b-kent", logoText:"KNT" },
+    { id:"c9", brand:"کنت", enBrand:"Kent", model:"آبی ۸ (Blue)", buy:90000, margin:15, sell:103500, stock:35, logoClass:"b-kent", logoText:"KNT" },
+    { id:"c10", brand:"کنت", enBrand:"Kent", model:"نانو نقره‌ای (Nano)", buy:95000, margin:15, sell:110000, stock:25, logoClass:"b-kent", logoText:"KNT" },
+    { id:"c11", brand:"بهمن", enBrand:"Bahman", model:"کوچک سوئیسی (Short)", buy:85000, margin:15, sell:98000, stock:60, logoClass:"b-bahman", logoText:"BAH" },
+    { id:"c12", brand:"بهمن", enBrand:"Bahman", model:"کتابی قرمز (Hard)", buy:90000, margin:15, sell:103500, stock:45, logoClass:"b-bahman", logoText:"BAH" },
+    { id:"c13", brand:"بهمن", enBrand:"Bahman", model:"باریک مشکی (Slims)", buy:90000, margin:15, sell:103500, stock:30, logoClass:"b-bahman", logoText:"BAH" },
+    { id:"c14", brand:"سناتور", enBrand:"Senator", model:"شرابی / شکلاتی فلزی", buy:130000, margin:20, sell:156000, stock:20, logoClass:"b-senator", logoText:"SEN" },
+    { id:"c15", brand:"کاپیتان بلک", enBrand:"Captain Black", model:"شکلاتی دارک کرما", buy:120000, margin:20, sell:144000, stock:25, logoClass:"b-captain", logoText:"CAP" },
+    { id:"c16", brand:"اسه", enBrand:"Esse", model:"چنج بلوبری (Change)", buy:95000, margin:15, sell:110000, stock:35, logoClass:"b-esse", logoText:"ESE" },
+    { id:"c17", brand:"مگنا", enBrand:"Magna", model:"قرمز کلاسیک", buy:75000, margin:15, sell:86000, stock:50, logoClass:"b-magna", logoText:"MAG" }
   ],
   tobacco: [
-    { id:"t1", brand:"الفاخر", enBrand:"Al Fakher", model:"دوسیب ۲۵۰ گرم", buy:100000, margin:20, sell:120000, stock:30 },
-    { id:"t2", brand:"مزایا", enBrand:"Mazaya", model:"نعناع یخ ۵۰ گرم", buy:35000, margin:20, sell:42000, stock:50 }
+    { id:"t1", brand:"الفاخر", enBrand:"Al Fakher", model:"دوسیب ۲۵۰ گرم (Two Apples)", buy:95000, margin:20, sell:114000, stock:40, logoClass:"b-fakher", logoText:"AF" },
+    { id:"t2", brand:"الفاخر", enBrand:"Al Fakher", model:"انگور سیاه (Black Grape)", buy:95000, margin:20, sell:114000, stock:25, logoClass:"b-fakher", logoText:"AF" },
+    { id:"t3", brand:"الفاخر", enBrand:"Al Fakher", model:"لیمو نعناع (Lemon Mint)", buy:95000, margin:20, sell:114000, stock:30, logoClass:"b-fakher", logoText:"AF" },
+    { id:"t4", brand:"مزایا", enBrand:"Mazaya", model:"نعناع یخ ۵۰ گرم (Mint Ice)", buy:35000, margin:20, sell:42000, stock:50, logoClass:"b-mazaya", logoText:"MAZ" },
+    { id:"t5", brand:"مزایا", enBrand:"Mazaya", model:"بلوبری (Blueberry)", buy:35000, margin:20, sell:42000, stock:35, logoClass:"b-mazaya", logoText:"MAZ" },
+    { id:"t6", brand:"ادالیا", enBrand:"Adalya", model:"لاو ۶۶ (Love 66)", buy:45000, margin:20, sell:54000, stock:30, logoClass:"b-adalya", logoText:"ADL" },
+    { id:"t7", brand:"خوانسار", enBrand:"Khansar", model:"تنباکو چوبی سنتی اصل", buy:30000, margin:25, sell:37500, stock:45, logoClass:"b-other", logoText:"KHN" }
+  ],
+  hookah_coal: [
+    { id:"h1", brand:"زغال نارگیل", enBrand:"Coconut Charcoal", model:"مکعبی بدون دود ۱ کیلویی", buy:75000, margin:25, sell:94000, stock:40, logoClass:"b-charcoal", logoText:"COAL" },
+    { id:"h2", brand:"زغال سکه‌ای", enBrand:"Quick Charcoal", model:"خودسوز جرقه‌ای (رول)", buy:25000, margin:30, sell:32500, stock:60, logoClass:"b-charcoal", logoText:"COAL" },
+    { id:"h3", brand:"قلیان برنجی", enBrand:"Brass Hookah", model:"خوانسار سنتی ست کامل", buy:95000, margin:25, sell:1187000, stock:6, logoClass:"b-hookah", logoText:"HOOK" },
+    { id:"h4", brand:"قلیان کرافت", enBrand:"Craft Hookah", model:"استیل مدرن مسافرتی", buy:650000, margin:25, sell:812000, stock:8, logoClass:"b-hookah", logoText:"HOOK" },
+    { id:"h5", brand:"فویل قلیان", enBrand:"Hookah Foil", model:"سوراخ‌دار آماده بسته ۱۰۰ تایی", buy:30000, margin:30, sell:39000, stock:30, logoClass:"b-hookah", logoText:"FOIL" },
+    { id:"h6", brand:"شیلنگ یکبارمصرف", enBrand:"Hookah Hose", model:"اسفنجی دسته بلند", buy:15000, margin:40, sell:21000, stock:50, logoClass:"b-hookah", logoText:"HOSE" }
   ],
   lighter: [
-    { id:"l1", brand:"کلیپر", enBrand:"Clipper", model:"فلزی کلاسیک", buy:80000, margin:25, sell:100000, stock:20 },
-    { id:"l2", brand:"زیپو", enBrand:"Zippo", model:"طرح مات", buy:400000, margin:20, sell:480000, stock:5 }
+    { id:"l1", brand:"کلیپر", enBrand:"Clipper", model:"سنگی چخماقی طرح‌دار", buy:35000, margin:30, sell:45500, stock:50, logoClass:"b-clipper", logoText:"CLIP" },
+    { id:"l2", brand:"کلیپر فلزی", enBrand:"Clipper Metal", model:"جعبه فلزی کادویی", buy:140000, margin:25, sell:175000, stock:15, logoClass:"b-clipper", logoText:"CLIP" },
+    { id:"l3", brand:"زیپو", enBrand:"Zippo", model:"کلاسیک بنزینی مات", buy:450000, margin:20, sell:54000, stock:8, logoClass:"b-zippo", logoText:"ZIP" },
+    { id:"l4", brand:"فندک اتمی", enBrand:"Torch Lighter", model:"توربو ۳ شعله زغال‌زن", buy:85000, margin:25, sell:106000, stock:20, logoClass:"b-clipper", logoText:"TRCH" },
+    { id:"l5", brand:"گاز فندک", enBrand:"Lighter Gas", model:"کپسول ۳۰۰ میل تصفیه‌شده", buy:40000, margin:30, sell:52000, stock:25, logoClass:"b-other", logoText:"GAS" },
+    { id:"l6", brand:"بنزین زیپو", enBrand:"Zippo Fluid", model:"سوخت اصل ۱۲۵ میل", buy:85000, margin:20, sell:102000, stock:15, logoClass:"b-zippo", logoText:"ZIP" }
   ],
   pipe: [
-    { id:"p1", brand:"کاپیتان بلک", enBrand:"Captain Black", model:"شکلاتی ۵۰ گرم", buy:180000, margin:20, sell:216000, stock:18 }
+    { id:"p1", brand:"کاپیتان بلک", enBrand:"Captain Black", model:"توتون پیپ شکلاتی ۵۰ گرم", buy:180000, margin:20, sell:216000, stock:18, logoClass:"b-captain", logoText:"CAP" },
+    { id:"p2", brand:"مک بارن", enBrand:"Mac Baren", model:"چری чойс ۵۰ گرم", buy:220000, margin:20, sell:264000, stock:12, logoClass:"b-other", logoText:"MAC" },
+    { id:"p3", brand:"کاغذ اسموکینگ", enBrand:"Smoking Paper", model:"دفترچه قرمز ۵۰ برگ", buy:20000, margin:35, sell:27000, stock:60, logoClass:"b-other", logoText:"SMK" },
+    { id:"p4", brand:"فیلتر دست‌پیچ", enBrand:"Filter Tips", model:"نخی ۶ میل بسته ۱۲۰ عددی", buy:35000, margin:30, sell:45500, stock:40, logoClass:"b-other", logoText:"FLT" }
   ],
   perfume: [
-    { id:"o1", brand:"همدان", enBrand:"Hamadan", model:"عود دست‌ساز صندل", buy:45000, margin:30, sell:58500, stock:40 }
+    { id:"o1", brand:"همدان", enBrand:"HEM", model:"عود دست‌ساز صندل (Sandal)", buy:45000, margin:30, sell:58500, stock:40, logoClass:"b-other", logoText:"HEM" },
+    { id:"o2", brand:"هفت چاکرا", enBrand:"Seven Chakras", model:"انرژی‌بخش طبیعی", buy:50000, margin:30, sell:65000, stock:30, logoClass:"b-other", logoText:"CHK" }
   ]
 };
 
-let products = JSON.parse(localStorage.getItem('osta_prod_v6')) || INITIAL_PRODUCTS;
-let invoices = JSON.parse(localStorage.getItem('osta_inv_v6')) || [];
-let debtors  = JSON.parse(localStorage.getItem('osta_deb_v6'))  || [];
-let lastBackupTime = localStorage.getItem('osta_last_backup_v6') || null;
+let products = JSON.parse(localStorage.getItem('osta_prod_v8')) || INITIAL_PRODUCTS;
+let invoices = JSON.parse(localStorage.getItem('osta_inv_v8')) || [];
+let debtors  = JSON.parse(localStorage.getItem('osta_deb_v8'))  || [];
+let lastBackupTime = localStorage.getItem('osta_last_backup_v8') || null;
 
 let cart = [];
 let activePosCat = 'cig';
 let activeStockCat = 'cig';
 
 function save() {
-  localStorage.setItem('osta_prod_v6', JSON.stringify(products));
-  localStorage.setItem('osta_inv_v6', JSON.stringify(invoices));
-  localStorage.setItem('osta_deb_v6', JSON.stringify(debtors));
+  localStorage.setItem('osta_prod_v8', JSON.stringify(products));
+  localStorage.setItem('osta_inv_v8', JSON.stringify(invoices));
+  localStorage.setItem('osta_deb_v8', JSON.stringify(debtors));
 }
 
 const fa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 const money = n => fa(Number(Math.round(n||0)).toLocaleString('en-US')) + ' تومان';
 
-// مدیریت مودال بومی و بدون آدرس مرورگر
 function showAppAlert(msg, cb) {
   const m = document.getElementById('customModal');
   document.getElementById('modalTitle').innerText = "دخانیات اوستا";
@@ -433,7 +503,6 @@ function closeModal() {
   document.getElementById('customModal').style.display = 'none';
 }
 
-// تب‌های دو ردیفه
 document.querySelectorAll('.tab').forEach(b => {
   b.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -450,12 +519,11 @@ document.querySelectorAll('.tab').forEach(b => {
 });
 
 function getLogoBadge(item) {
-  const text = item.logoText || (item.enBrand ? item.enBrand.slice(0,1) : item.brand.slice(0,1));
-  const cls = item.logoClass || 'brand-other';
+  const text = item.logoText || (item.enBrand ? item.enBrand.slice(0,3).toUpperCase() : item.brand.slice(0,2));
+  const cls = item.logoClass || 'b-other';
   return `<span class="brand-badge ${cls}">${text}</span>`;
 }
 
-// ثبت سریع پیامکی
 function toggleQuickDebtor() {
   const isDebt = document.querySelector('input[name="quickPay"]:checked').value === 'debt';
   document.getElementById('quickDebtorWrap').style.display = isDebt ? 'block' : 'none';
@@ -463,7 +531,7 @@ function toggleQuickDebtor() {
 
 function submitQuickOrder() {
   const text = document.getElementById('quickOrderInput').value.trim();
-  if (!text) { showAppAlert("لطفاً عبارت سفارش را وارد کنید (مثال: ۱ پاکت وینستون)."); return; }
+  if (!text) { showAppAlert("لطفاً عبارت سفارش را وارد کنید (مثال: ۱ پاکت وینستون لایت)."); return; }
 
   const pay = document.querySelector('input[name="quickPay"]:checked').value;
   let debtor = document.getElementById('quickDebtorName').value.trim();
@@ -471,7 +539,7 @@ function submitQuickOrder() {
   if (pay === 'debt' && !debtor) {
     showAppPrompt("نام مشتری بدهکار را بنویسید:", "", function(enteredName) {
       if (!enteredName) {
-        showAppAlert("نام بدهکار وارد نشد، فاکتور نسیه ثبت نشد.");
+        showAppAlert("نام بدهکار وارد نشد، فاکتور ثبت نشد.");
         return;
       }
       processQuickOrderFinal(text, pay, enteredName);
@@ -508,12 +576,12 @@ function processQuickOrderFinal(text, pay, debtor) {
   }
 
   if (!found) {
-    showAppAlert("کالای مورد نظر در انبار یافت نشد. لطفاً نام برند یا طعم را بررسی کنید.");
+    showAppAlert("کالای مورد نظر در سیستم پیدا نشد. لطفاً نام یا برند را بررسی کنید.");
     return;
   }
 
   if (found.stock < qty) {
-    showAppAlert(`موجودی انبار کافی نیست! موجودی فعلی: ${found.stock} بسته.`);
+    showAppAlert(`موجودی کافی نیست! موجودی فعلی: ${found.stock} بسته/عدد.`);
     return;
   }
 
@@ -525,12 +593,13 @@ function processQuickOrderFinal(text, pay, debtor) {
   const inv = {
     id: Date.now().toString().slice(-5),
     date: now.toISOString(),
+    faDate: now.toLocaleDateString('fa-IR'),
     time: now.toLocaleTimeString('fa-IR'),
     total,
     profit,
     pay,
     debtor: pay === 'debt' ? debtor : null,
-    items: [{ brand: found.brand, model: found.model, qty, sell: found.sell, buy: found.buy, cat: targetCat }]
+    items: [{ brand: found.brand, model: found.model, qty, sell: found.sell, buy: found.buy, cat: targetCat, logoClass: found.logoClass, logoText: found.logoText }]
   };
 
   invoices.push(inv);
@@ -544,11 +613,10 @@ function processQuickOrderFinal(text, pay, debtor) {
   save();
   document.getElementById('quickOrderInput').value = '';
   document.getElementById('quickDebtorName').value = '';
-  showAppAlert(`فاکتور ثبت شد!\nمبلغ کل: ${money(total)}\nکسر شد: ${qty} بسته از ${found.brand}`);
+  showAppAlert(`فاکتور صادر شد!\nمبلغ کل: ${money(total)}\nکسر شد: ${qty} عدد/بسته ${found.brand} ${found.model}`);
   renderDash();
 }
 
-// فرم ورود بار با محاسبات خودکار متقابل
 function calcNewProductSell(trigger) {
   const buy = Number(document.getElementById('newBuyPrice').value || 0);
   let margin = Number(document.getElementById('newMargin').value || 0);
@@ -560,8 +628,7 @@ function calcNewProductSell(trigger) {
     }
   } else if (trigger === 'sell') {
     if (buy > 0 && sell >= buy) {
-      const calculatedMargin = Math.round(((sell - buy) / buy) * 100);
-      document.getElementById('newMargin').value = calculatedMargin;
+      document.getElementById('newMargin').value = Math.round(((sell - buy) / buy) * 100);
     }
   }
 }
@@ -576,7 +643,7 @@ function submitNewArrival() {
   let sell = Number(document.getElementById('newSellPrice').value || 0);
 
   if (!brand || qty <= 0 || buy <= 0) {
-    showAppAlert("لطفاً مشخصات کالا، تعداد و قیمت خرید را معتبر وارد کنید.");
+    showAppAlert("لطفاً مشخصات، تعداد و قیمت خرید را معتبر پر کنید.");
     return;
   }
 
@@ -589,12 +656,18 @@ function submitNewArrival() {
     existing.margin = margin;
     existing.sell = sell;
   } else {
-    let logoClass = "brand-other";
-    let logoText = brand.slice(0, 1).toUpperCase();
-    if (brand.includes("وینستون") || brand.toLowerCase().includes("winston")) { logoClass = "brand-winston"; logoText = "W"; }
-    else if (brand.includes("مارلبرو") || brand.toLowerCase().includes("marlboro")) { logoClass = "brand-marlboro"; logoText = "M"; }
-    else if (brand.includes("بهمن") || brand.toLowerCase().includes("bahman")) { logoClass = "brand-bahman"; logoText = "B"; }
-    else if (brand.includes("کنت") || brand.toLowerCase().includes("kent")) { logoClass = "brand-kent"; logoText = "K"; }
+    let logoClass = "b-other";
+    let logoText = brand.slice(0, 3).toUpperCase();
+    const lBrand = brand.toLowerCase();
+
+    if (lBrand.includes("وینستون") || lBrand.includes("winston")) { logoClass = "b-winston"; logoText = "WIN"; }
+    else if (lBrand.includes("مارلبرو") || lBrand.includes("marlboro")) { logoClass = "b-marlboro"; logoText = "PM"; }
+    else if (lBrand.includes("بهمن") || lBrand.includes("bahman")) { logoClass = "b-bahman"; logoText = "BAH"; }
+    else if (lBrand.includes("کنت") || lBrand.includes("kent")) { logoClass = "b-kent"; logoText = "KNT"; }
+    else if (lBrand.includes("الفاخر") || lBrand.includes("fakher")) { logoClass = "b-fakher"; logoText = "AF"; }
+    else if (lBrand.includes("مزایا") || lBrand.includes("mazaya")) { logoClass = "b-mazaya"; logoText = "MAZ"; }
+    else if (lBrand.includes("قلیان") || lBrand.includes("قلیون")) { logoClass = "b-hookah"; logoText = "HOOK"; }
+    else if (lBrand.includes("زغال") || lBrand.includes("ذغال")) { logoClass = "b-charcoal"; logoText = "COAL"; }
 
     products[cat].push({
       id: 'it_' + Date.now(),
@@ -611,7 +684,7 @@ function submitNewArrival() {
   }
 
   save();
-  showAppAlert(`کالای «${brand}» به تعداد ${qty} بسته در انبار ذخیره شد.`);
+  showAppAlert(`کالای «${brand}» با تعداد ${qty} در انبار ثبت گردید.`);
   document.getElementById('newBrand').value = '';
   document.getElementById('newModel').value = '';
   document.getElementById('newQty').value = '';
@@ -620,7 +693,6 @@ function submitNewArrival() {
   renderDash();
 }
 
-// داشبورد
 function renderDash() {
   const today = new Date().toISOString().split('T')[0];
   const todayInvs = invoices.filter(i => i.date.startsWith(today));
@@ -637,19 +709,23 @@ function renderDash() {
   document.getElementById('dTotalDebts').innerText = money(dVal);
 
   const tb = document.getElementById('dRecentTbl');
-  tb.innerHTML = invoices.slice(-5).reverse().map(inv => `
+  tb.innerHTML = invoices.slice(-6).reverse().map(inv => `
     <tr>
-      <td>#${inv.id}</td>
-      <td>${inv.time}</td>
+      <td><b>#${inv.id}</b></td>
+      <td><span style="font-size:10px; color:var(--muted);">${inv.faDate || new Date(inv.date).toLocaleDateString('fa-IR')}</span><br><b>${inv.time}</b></td>
       <td>${inv.items.map(i => `${i.brand} (×${fa(i.qty)})`).join(', ')}</td>
-      <td>${money(inv.total)}</td>
+      <td style="color:var(--gold2); font-weight:bold;">${money(inv.total)}</td>
       <td>${inv.pay === 'cash' ? 'نقدی' : 'نسیه ('+inv.debtor+')'}</td>
-      <td><button class="btn sm ghost" onclick="printSingleInvoice('${inv.id}')">🖨️ چاپ</button></td>
+      <td>
+        <div style="display:flex; gap:4px;">
+          <button class="btn sm red" title="حذف فاکتور" onclick="deleteInvoice('${inv.id}')">🗑️</button>
+          <button class="btn sm ghost" title="چاپ فاکتور" onclick="printSingleInvoice('${inv.id}')">🖨️</button>
+        </div>
+      </td>
     </tr>
   `).join('');
 }
 
-// فروش دستی
 function switchPosCat(cat, el) {
   activePosCat = cat;
   el.parentElement.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
@@ -670,10 +746,10 @@ function renderPosPicker() {
   box.innerHTML = filtered.map(item => `
     <div class="citem">
       <div>
-        ${activePosCat === 'cig' ? getLogoBadge(item) : ''}
-        <b>${item.brand}</b> ${item.enBrand ? '<small>('+item.enBrand+')</small>' : ''} - ${item.model}
+        ${getLogoBadge(item)}
+        <b>${item.brand}</b> ${item.enBrand ? '<small style="color:var(--muted)">('+item.enBrand+')</small>' : ''} - ${item.model}
         <span style="font-size:11px; color:var(--gold); margin-right:6px;">(${money(item.sell)})</span>
-        <small style="color:var(--muted); font-size:10px;">موجودی: ${fa(item.stock)} بسته</small>
+        <small style="color:var(--muted); font-size:10px;">موجودی: ${fa(item.stock)}</small>
       </div>
       <button class="btn sm" onclick="addToCart('${activePosCat}', '${item.id}')">➕ افزودن</button>
     </div>
@@ -686,7 +762,7 @@ function addToCart(cat, id) {
   const existing = cart.find(c => c.id === id);
   if (existing) {
     if (existing.qty < product.stock) existing.qty++;
-    else showAppAlert("موجودی بیش از این در انبار نیست.");
+    else showAppAlert("سقف موجودی انبار پر شد.");
   } else {
     cart.push({ ...product, cat, qty: 1 });
   }
@@ -697,10 +773,13 @@ function renderCart() {
   const wrap = document.getElementById('cartItems');
   wrap.innerHTML = cart.map((c, i) => `
     <div class="citem">
-      <div>${c.brand} ${c.model} (${money(c.sell)})</div>
+      <div>
+        ${getLogoBadge(c)}
+        ${c.brand} ${c.model} (${money(c.sell)})
+      </div>
       <div>
         <button class="btn sm ghost" onclick="cartQty(${i}, -1)">-</button>
-        <span style="padding:0 8px; font-size:12px; font-weight:bold;">${fa(c.qty)} بسته</span>
+        <span style="padding:0 8px; font-size:12px; font-weight:bold;">${fa(c.qty)}</span>
         <button class="btn sm ghost" onclick="cartQty(${i}, 1)">+</button>
       </div>
     </div>
@@ -743,6 +822,7 @@ function submitCartInvoice() {
   const inv = {
     id: Date.now().toString().slice(-5),
     date: now.toISOString(),
+    faDate: now.toLocaleDateString('fa-IR'),
     time: now.toLocaleTimeString('fa-IR'),
     total,
     profit,
@@ -760,11 +840,10 @@ function submitCartInvoice() {
 
   save();
   clearCart();
-  showAppAlert(`فاکتور شماره #${inv.id} با موفقیت صادر گردید.`);
+  showAppAlert(`فاکتور شماره #${inv.id} با موفقیت ثبت شد.`);
   renderDash();
 }
 
-// آرشیو فاکتورها
 function renderInvoices() {
   const q = document.getElementById('invSearch').value.toLowerCase();
   const tb = document.getElementById('invoicesTbl');
@@ -775,30 +854,36 @@ function renderInvoices() {
   tb.innerHTML = filtered.map(inv => `
     <tr>
       <td><b>#${inv.id}</b></td>
-      <td>${inv.time}</td>
-      <td>${inv.items.map(i => `${i.brand} ${i.model} (×${fa(i.qty)} بسته)`).join('<br>')}</td>
+      <td><span style="font-size:10px; color:var(--muted);">${inv.faDate || new Date(inv.date).toLocaleDateString('fa-IR')}</span><br><b>${inv.time}</b></td>
+      <td>${inv.items.map(i => `${i.brand} ${i.model} (×${fa(i.qty)})`).join('<br>')}</td>
       <td style="color:var(--gold2); font-weight:bold;">${money(inv.total)}</td>
       <td>${inv.pay === 'cash' ? 'نقدی' : 'نسیه: ' + inv.debtor}</td>
       <td>
-        <button class="btn sm red" onclick="deleteInvoice('${inv.id}')">🗑️</button>
-        <button class="btn sm ghost" onclick="printSingleInvoice('${inv.id}')">🖨️</button>
+        <div style="display:flex; gap:4px;">
+          <button class="btn sm red" title="حذف فاکتور و برگشت کالا" onclick="deleteInvoice('${inv.id}')">🗑️</button>
+          <button class="btn sm ghost" title="چاپ تکی فاکتور" onclick="printSingleInvoice('${inv.id}')">🖨️</button>
+        </div>
       </td>
     </tr>
   `).join('');
 }
 
+// تابع حذف کامل یک فاکتور و برگرداندن کالا به انبار
 function deleteInvoice(id) {
   const idx = invoices.findIndex(i => i.id === id);
   if (idx === -1) return;
   const inv = invoices[idx];
 
-  showAppConfirm(`آیا از حذف فاکتور #${inv.id} مطمئن هستید؟ تمام کالاها به انبار بازمی‌گردند.`, function(confirmed) {
+  showAppConfirm(`آیا از حذف فاکتور شماره #${inv.id} مطمئن هستید؟ اقلام فاکتور به انبار برگشت داده شده و حساب بدهی اصلاح می‌شود.`, function(confirmed) {
     if (!confirmed) return;
+    
+    // برگرداندن اجناس به انبار
     inv.items.forEach(ci => {
-      const p = (products[ci.cat] || []).find(item => item.id === ci.id);
+      const p = (products[ci.cat] || []).find(item => item.id === ci.id || (item.brand === ci.brand && item.model === ci.model));
       if (p) p.stock += ci.qty;
     });
 
+    // کسر از حساب بدهکار در صورت نسیه بودن
     if (inv.pay === 'debt' && inv.debtor) {
       const dIdx = debtors.findIndex(d => d.name === inv.debtor);
       if (dIdx !== -1) {
@@ -811,11 +896,26 @@ function deleteInvoice(id) {
     save();
     renderInvoices();
     renderDash();
-    showAppAlert(`فاکتور #${id} حذف شد.`);
+    showAppAlert(`فاکتور #${id} با موفقیت حذف شد و موجودی به انبار بازگشت.`);
   });
 }
 
-// انبارداری و فرمول‌های اتوماتیک
+// تابع حذف یکجای فاکتورها (پاکسازی آرشیو)
+function clearAllInvoices() {
+  if (invoices.length === 0) {
+    showAppAlert("هیچ فاکتوری برای حذف وجود ندارد.");
+    return;
+  }
+  showAppConfirm("هشدار: آیا می‌خواهید تمام فاکتورهای آرشیو را حذف کنید؟\n(موجودی کالاها تغییر نمی‌کند و فقط سابقه فاکتورها پاک خواهد شد)", function(confirmed) {
+    if (!confirmed) return;
+    invoices = [];
+    save();
+    renderInvoices();
+    renderDash();
+    showAppAlert("تمام فاکتورها از لیست حذف شدند.");
+  });
+}
+
 function switchStockCat(cat, el) {
   activeStockCat = cat;
   el.parentElement.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
@@ -824,8 +924,8 @@ function switchStockCat(cat, el) {
 }
 
 function renderStock() {
-  const titles = { cig: "سیگارها", tobacco: "تنباکوها", lighter: "فندک‌ها", pipe: "توتون‌ها", perfume: "عود و ادکلن" };
-  document.getElementById('stockCatTitle').innerText = `موجودی ${titles[activeStockCat]} (بر مبنای بسته)`;
+  const titles = { cig: "سیگارها", tobacco: "تنباکو قلیان", hookah_coal: "قلیون و ذغال", lighter: "فندک‌ها", pipe: "توتون‌ها", perfume: "عود و ادکلن" };
+  document.getElementById('stockCatTitle').innerText = `موجودی ${titles[activeStockCat]}`;
 
   const wrap = document.getElementById('stockList');
   const list = products[activeStockCat] || [];
@@ -835,13 +935,13 @@ function renderStock() {
     return `
       <div class="item-row">
         <div>
-          ${activeStockCat === 'cig' ? getLogoBadge(item) : ''}
+          ${getLogoBadge(item)}
           <b>${item.brand}</b> <small>${item.model}</small>
         </div>
         <div>خرید: <input type="number" value="${item.buy}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'buy', this.value)"></div>
         <div>سود%: <input type="number" min="1" max="100" value="${marginVal}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'margin', this.value)"></div>
         <div>فروش: <input type="number" value="${item.sell}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'sell', this.value)"></div>
-        <div>بسته: <input type="number" value="${item.stock}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'stock', this.value)"></div>
+        <div>تعداد: <input type="number" value="${item.stock}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'stock', this.value)"></div>
         <button class="btn sm red" onclick="deleteProduct('${activeStockCat}', ${idx})">×</button>
       </div>
     `;
@@ -882,7 +982,6 @@ function deleteProduct(cat, idx) {
   });
 }
 
-// دفتر نسیه
 function renderDebts() {
   const tb = document.getElementById('debtsTbl');
   tb.innerHTML = debtors.map((d, i) => `
@@ -895,7 +994,7 @@ function renderDebts() {
 }
 
 function settleDebt(i) {
-  showAppPrompt(`مبلغ دریافتی برای تسویه حساب ${debtors[i].name} (تومان):`, debtors[i].amount, function(amtStr) {
+  showAppPrompt(`مبلغ دریافتی برای تسویه ${debtors[i].name} (تومان):`, debtors[i].amount, function(amtStr) {
     const amt = Number(amtStr || 0);
     if (amt > 0) {
       debtors[i].amount -= amt;
@@ -903,56 +1002,75 @@ function settleDebt(i) {
       save();
       renderDebts();
       renderDash();
-      showAppAlert("تسویه حساب با موفقیت اعمال شد.");
+      showAppAlert("تسویه حساب با موفقیت ثبت شد.");
     }
   });
 }
 
-// چاپ و PDF
+// تولید تمپلیت شیک و استاندارد فاکتور چاپی با تاریخ، ساعت و خط جداساز
+function generateReceiptHtml(inv) {
+  const fDate = inv.faDate || new Date(inv.date).toLocaleDateString('fa-IR');
+  const payLabel = inv.pay === 'cash' ? 'نقدی / کارت‌خوان' : `نسیه (بدهکار: ${inv.debtor})`;
+  return `
+    <div class="receipt-box">
+      <div class="receipt-header">
+        <h2>دخانیات اوستا</h2>
+        <div style="font-size:12px; font-weight:bold;">فاکتور فروش کالا #${inv.id}</div>
+        <div class="receipt-meta">
+          <span>📅 تاریخ: <b>${fDate}</b></span>
+          <span>⏰ زمان: <b>${inv.time}</b></span>
+          <span>💳 پرداخت: <b>${payLabel}</b></span>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:45%">شرح کالا</th>
+            <th style="text-align:center; width:15%">تعداد</th>
+            <th style="width:20%">فی (تومان)</th>
+            <th style="width:20%">جمع (تومان)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${inv.items.map(it => `
+            <tr>
+              <td><b>${it.brand}</b> - ${it.model}</td>
+              <td style="text-align:center;">${fa(it.qty)}</td>
+              <td>${fa(Number(it.sell).toLocaleString('en-US'))}</td>
+              <td>${fa(Number(it.sell * it.qty).toLocaleString('en-US'))}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <div class="receipt-footer">
+        <span>مبلغ قابل پرداخت فاکتور:</span>
+        <span style="font-size:14px;">${money(inv.total)}</span>
+      </div>
+    </div>
+    <div class="cut-divider"><span>✂️ خط برش و جداسازی قبض</span></div>
+  `;
+}
+
 function printSingleInvoice(id) {
   const inv = invoices.find(i => i.id === id);
   if (!inv) return;
   const pArea = document.getElementById('printArea');
-  pArea.innerHTML = `
-    <h2>دخانیات اوستا</h2>
-    <p>فاکتور رسمی فروش - شماره: #${inv.id} | تاریخ: ${new Date(inv.date).toLocaleDateString('fa-IR')} - ساعت: ${inv.time}</p>
-    <table>
-      <thead><tr><th>شرح کالا</th><th>تعداد (بسته)</th><th>فی (تومان)</th><th>مجموع</th></tr></thead>
-      <tbody>
-        ${inv.items.map(it => `
-          <tr>
-            <td>${it.brand} - ${it.model}</td>
-            <td>${fa(it.qty)} بسته</td>
-            <td>${money(it.sell)}</td>
-            <td>${money(it.sell * it.qty)}</td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-    <h3 style="margin-top:14px; text-align:left;">مبلغ کل دریافتی: ${money(inv.total)} (${inv.pay === 'cash' ? 'نقدی' : 'نسیه بدهکار: ' + inv.debtor})</h3>
-  `;
+  pArea.innerHTML = generateReceiptHtml(inv);
   window.print();
 }
 
 function printAllInvoices() {
+  if (invoices.length === 0) {
+    showAppAlert("هیچ فاکتوری برای چاپ موجود نیست.");
+    return;
+  }
   const pArea = document.getElementById('printArea');
   pArea.innerHTML = `
-    <h2>گزارش کل فاکتورهای فروش دخانیات اوستا</h2>
-    <p>تاریخ گزارش: ${new Date().toLocaleDateString('fa-IR')} ${new Date().toLocaleTimeString('fa-IR')}</p>
-    <table>
-      <thead><tr><th>شماره</th><th>ساعت</th><th>اقلام سفارش</th><th>مبلغ</th><th>وضعیت</th></tr></thead>
-      <tbody>
-        ${invoices.map(inv => `
-          <tr>
-            <td>#${inv.id}</td>
-            <td>${inv.time}</td>
-            <td>${inv.items.map(i => `${i.brand} (×${fa(i.qty)})`).join(', ')}</td>
-            <td>${money(inv.total)}</td>
-            <td>${inv.pay === 'cash' ? 'نقدی' : 'نسیه: ' + inv.debtor}</td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
+    <div style="text-align:center; margin-bottom:18px; border-bottom:2px solid #000; padding-bottom:8px;">
+      <h1 style="font-size:20px; color:#000;">دفترچه فاکتورهای فروش دخانیات اوستا</h1>
+      <p style="font-size:11px; margin-top:4px;">تاریخ چاپ گزارش: ${new Date().toLocaleDateString('fa-IR')} - ساعت ${new Date().toLocaleTimeString('fa-IR')}</p>
+    </div>
+    ${invoices.slice().reverse().map(inv => generateReceiptHtml(inv)).join('')}
   `;
   window.print();
 }
@@ -961,26 +1079,35 @@ function printDebtorsList() {
   const pArea = document.getElementById('printArea');
   const sum = debtors.reduce((s, d) => s + d.amount, 0);
   pArea.innerHTML = `
-    <h2>صورت‌حساب رسمی بدهکاران نسیه - دخانیات اوستا</h2>
-    <p>تاریخ استخراج: ${new Date().toLocaleDateString('fa-IR')}</p>
-    <table>
-      <thead><tr><th>ردیف</th><th>نام و مشخصات بدهکار</th><th>مبلغ بدهی (تومان)</th></tr></thead>
-      <tbody>
-        ${debtors.map((d, idx) => `
-          <tr>
-            <td>${fa(idx + 1)}</td>
-            <td><b>${d.name}</b></td>
-            <td>${money(d.amount)}</td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-    <h3 style="margin-top:14px; text-align:left;">مجموع کل طلب‌های نسیه: ${money(sum)}</h3>
+    <div class="receipt-box">
+      <div class="receipt-header">
+        <h2>صورت‌حساب بدهکاران نسیه - دخانیات اوستا</h2>
+        <div class="receipt-meta">
+          <span>📅 تاریخ استخراج: <b>${new Date().toLocaleDateString('fa-IR')}</b></span>
+          <span>⏰ ساعت: <b>${new Date().toLocaleTimeString('fa-IR')}</b></span>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>ردیف</th><th>نام و مشخصات بدهکار</th><th>مبلغ بدهی (تومان)</th></tr></thead>
+        <tbody>
+          ${debtors.map((d, idx) => `
+            <tr>
+              <td style="text-align:center;">${fa(idx + 1)}</td>
+              <td><b>${d.name}</b></td>
+              <td>${money(d.amount)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <div class="receipt-footer">
+        <span>مجموع کل طلب‌های نسیه:</span>
+        <span style="font-size:14px;">${money(sum)}</span>
+      </div>
+    </div>
   `;
   window.print();
 }
 
-// بک‌آپ هفتگی
 function checkWeeklyBackupReminder() {
   const alertBox = document.getElementById('backupWeeklyAlert');
   const lastTxt = document.getElementById('lastBackupDateText');
@@ -1004,7 +1131,7 @@ function checkWeeklyBackupReminder() {
 
 function exportData() {
   const timestamp = Date.now();
-  localStorage.setItem('osta_last_backup_v6', timestamp);
+  localStorage.setItem('osta_last_backup_v8', timestamp);
   lastBackupTime = timestamp;
 
   const blob = new Blob([JSON.stringify({ products, invoices, debtors, backupDate: new Date().toISOString() })], { type: 'application/json' });
@@ -1014,7 +1141,7 @@ function exportData() {
   a.click();
 
   checkWeeklyBackupReminder();
-  showAppAlert("فایل کامل پشتیبان با موفقیت در دستگاه شما ذخیره شد.");
+  showAppAlert("فایل پشتیبان با موفقیت در گوشی ذخیره شد.");
 }
 
 function importData(e) {
@@ -1033,7 +1160,7 @@ function importData(e) {
           location.reload();
         });
       }
-    } catch(err) { showAppAlert("فایل پشتیبان انتخاب‌شده نامعتبر است."); }
+    } catch(err) { showAppAlert("فایل پشتیبان معتبر نیست."); }
   };
   r.readAsText(file);
 }
