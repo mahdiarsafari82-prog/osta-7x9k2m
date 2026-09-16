@@ -31,6 +31,7 @@ header { display:flex; align-items:center; justify-content:space-between; paddin
 h1 { font-size:22px; font-weight:900; background:linear-gradient(135deg,var(--gold2),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
 
 .backup-alert { background:rgba(255,152,0,0.15); border:1px solid var(--warn); color:#ffc107; padding:10px 14px; border-radius:10px; margin-bottom:12px; font-size:12px; display:none; justify-content:space-between; align-items:center; }
+.restore-banner { background:rgba(0,186,124,0.15); border:1px solid var(--green); color:#2ee6a8; padding:10px 14px; border-radius:10px; margin-bottom:12px; font-size:12px; display:none; justify-content:space-between; align-items:center; }
 
 .nav-container { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
 .nav-row { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; }
@@ -104,34 +105,15 @@ th { color:var(--muted); font-size:11px; }
 @media print {
   body > * { display:none !important; }
   #printArea { display:block !important; color:#000 !important; background:#fff !important; padding:15px; font-size:12px; }
-  .receipt-box { 
-    border: 1.5px solid #222; 
-    border-radius: 8px; 
-    padding: 12px 16px; 
-    margin-bottom: 22px; 
-    page-break-inside: avoid; 
-    background: #fff;
-  }
-  .receipt-header { 
-    text-align: center; 
-    border-bottom: 1px dashed #444; 
-    padding-bottom: 8px; 
-    margin-bottom: 10px; 
-  }
+  .receipt-box { border: 1.5px solid #222; border-radius: 8px; padding: 12px 16px; margin-bottom: 22px; page-break-inside: avoid; background: #fff; }
+  .receipt-header { text-align: center; border-bottom: 1px dashed #444; padding-bottom: 8px; margin-bottom: 10px; }
   .receipt-header h2 { font-size: 16px; margin-bottom: 4px; font-weight: 900; }
   .receipt-meta { display:flex; justify-content: space-between; font-size: 11px; margin-top: 4px; }
   .receipt-box table { width:100%; border-collapse:collapse; margin-top:8px; }
   .receipt-box th, .receipt-box td { border-bottom: 1px solid #ddd; padding: 6px 4px; font-size: 11px; text-align: right; }
   .receipt-box th { background: #f2f2f2; font-weight: bold; }
   .receipt-footer { display:flex; justify-content:space-between; margin-top:10px; font-weight:bold; font-size:12px; border-top:1px dashed #444; padding-top:6px; }
-  .cut-divider { 
-    text-align: center; 
-    font-size: 10px; 
-    color: #666; 
-    margin: 14px 0 24px 0; 
-    border-bottom: 1px dashed #aaa; 
-    line-height: 0.1em; 
-  }
+  .cut-divider { text-align: center; font-size: 10px; color: #666; margin: 14px 0 24px 0; border-bottom: 1px dashed #aaa; line-height: 0.1em; }
   .cut-divider span { background:#fff; padding:0 10px; }
 }
 </style>
@@ -145,6 +127,12 @@ th { color:var(--muted); font-size:11px; }
     </div>
     <div id="curDate" style="font-size:11px; color:var(--muted); text-align:left;"></div>
   </header>
+
+  <!-- بنر بازیابی هوشمند اطلاعات قبلی -->
+  <div class="restore-banner" id="restoreBanner">
+    <span>♻️ اطلاعات و لیست‌های ثبت‌شده قبلی شما پیدا شد!</span>
+    <button class="btn sm green" onclick="restoreOldVersionData()">🔄 بازگردانی سریع اطلاعات قبلی</button>
+  </div>
 
   <div class="backup-alert" id="backupWeeklyAlert">
     <span>⚠️ بیش از ۷ روز از آخرین پشتیبان‌گیری گذشته است!</span>
@@ -337,7 +325,7 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
-  <!-- انبارداری همراه با قابلیت جستجوی دقیق -->
+  <!-- انبارداری همراه با جستجوی اختصاصی -->
   <div class="page" id="stock">
     <div class="sub-tabs">
       <button class="sub-tab active" onclick="switchStockCat('cig', this)">🚬 سیگار</button>
@@ -361,7 +349,6 @@ th { color:var(--muted); font-size:11px; }
       <div class="card-h">
         <div class="card-t" id="stockCatTitle">موجودی انبار</div>
       </div>
-      <!-- کادر جستجوی مستقل برای بخش انبارداری -->
       <input id="stockSearchInput" placeholder="🔍 جستجوی سریع نام یا مشخصات کالا در این دسته..." oninput="renderStock()" style="margin-bottom:12px;">
       <div id="stockList"></div>
     </div>
@@ -420,94 +407,95 @@ th { color:var(--muted); font-size:11px; }
 <div id="printArea"></div>
 
 <script>
-const INITIAL_PRODUCTS = {
+// بررسی و بازخوانی تمام حافظه‌های نسخه‌های قبلی برای جلوگیری از مفقودی
+function getLatestStoredData() {
+  const versions = ['osta_prod_v8', 'osta_prod_v7', 'osta_prod_v6', 'osta_prod_v5', 'osta_prod_v4', 'osta_products_v3', 'osta_products_v2'];
+  for (let v of versions) {
+    const raw = localStorage.getItem(v);
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed && Object.keys(parsed).length > 0) return { data: parsed, ver: v };
+      } catch(e){}
+    }
+  }
+  return null;
+}
+
+function getLatestInvoices() {
+  const versions = ['osta_inv_v8', 'osta_inv_v7', 'osta_inv_v6', 'osta_inv_v5', 'osta_inv_v4', 'osta_invoices_v3', 'osta_invoices_v2'];
+  for (let v of versions) {
+    const raw = localStorage.getItem(v);
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.length > 0) return parsed;
+      } catch(e){}
+    }
+  }
+  return [];
+}
+
+function getLatestDebtors() {
+  const versions = ['osta_deb_v8', 'osta_deb_v7', 'osta_deb_v6', 'osta_deb_v5', 'osta_deb_v4', 'osta_debtors_v3', 'osta_debtors_v2'];
+  for (let v of versions) {
+    const raw = localStorage.getItem(v);
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.length > 0) return parsed;
+      } catch(e){}
+    }
+  }
+  return [];
+}
+
+// دیتابیس پایه محصولات
+const DEFAULT_PRODUCTS = {
   cig: [
     { id:"c1", brand:"وینستون", enBrand:"Winston", model:"لایت آبی (Lights)", buy:100000, margin:15, sell:115000, stock:50, logoClass:"b-winston", logoText:"WIN" },
     { id:"c2", brand:"وینستون", enBrand:"Winston", model:"قرمز کلاسیک (Classic)", buy:100000, margin:15, sell:115000, stock:40, logoClass:"b-winston", logoText:"WIN" },
-    { id:"c3", brand:"وینستون", enBrand:"Winston", model:"ایکس‌استایل (XStyle)", buy:105000, margin:15, sell:120000, stock:30, logoClass:"b-winston", logoText:"WIN" },
-    { id:"c4", brand:"مارلبرو", enBrand:"Marlboro", model:"رد قرمز (Red)", buy:150000, margin:20, sell:180000, stock:35, logoClass:"b-marlboro", logoText:"PM" },
-    { id:"c5", brand:"مارلبرو", enBrand:"Marlboro", model:"گلد طلایی (Gold)", buy:150000, margin:20, sell:180000, stock:30, logoClass:"b-marlboro", logoText:"PM" },
-    { id:"c6", brand:"کنت", enBrand:"Kent", model:"پاور سوئیچ نعنایی (Switch)", buy:95000, margin:15, sell:110000, stock:40, logoClass:"b-kent", logoText:"KNT" },
-    { id:"c7", brand:"بهمن", enBrand:"Bahman", model:"کوچک سوئیسی (Short)", buy:85000, margin:15, sell:98000, stock:60, logoClass:"b-bahman", logoText:"BAH" }
+    { id:"c3", brand:"مارلبرو", enBrand:"Marlboro", model:"رد قرمز (Red)", buy:150000, margin:20, sell:180000, stock:35, logoClass:"b-marlboro", logoText:"PM" },
+    { id:"c4", brand:"بهمن", enBrand:"Bahman", model:"کوچک سوئیسی (Short)", buy:85000, margin:15, sell:98000, stock:60, logoClass:"b-bahman", logoText:"BAH" }
   ],
-  coffee: [
-    { id:"cof1", brand:"لاوازا", enBrand:"Lavazza", model:"اسپرسو کوالیتا روسا ۲۵۰ گرم", buy:240000, margin:20, sell:288000, stock:15, logoClass:"b-other", logoText:"COF" },
-    { id:"cof2", brand:"ایلی", enBrand:"Illy", model:"دانه کلاسیک رست متوسط", buy:450000, margin:18, sell:531000, stock:10, logoClass:"b-other", logoText:"COF" },
-    { id:"cof3", brand:"نسکافه", enBrand:"Nescafe", model:"گلد فوری ۱۰۰ گرمی", buy:180000, margin:20, sell:216000, stock:20, logoClass:"b-other", logoText:"NES" }
-  ],
-  hookah: [
-    { id:"h1", brand:"قلیان برنجی", enBrand:"Brass Hookah", model:"خوانسار سنتی ست کامل", buy:950000, margin:25, sell:1187000, stock:6, logoClass:"b-hookah", logoText:"HOOK" },
-    { id:"h2", brand:"قلیان کرافت", enBrand:"Craft Hookah", model:"استیل مدرن مسافرتی", buy:650000, margin:25, sell:812000, stock:8, logoClass:"b-hookah", logoText:"HOOK" }
-  ],
-  hose: [
-    { id:"hos1", brand:"شلنگ یکبارمصرف", enBrand:"Disposable Hose", model:"اسفنجی دسته بلند", buy:15000, margin:40, sell:21000, stock:50, logoClass:"b-hookah", logoText:"HOSE" },
-    { id:"hos2", brand:"شلنگ چرمی", enBrand:"Leather Hose", model:"چرم طبیعی سنتی دست‌ساز", buy:120000, margin:25, sell:150000, stock:12, logoClass:"b-hookah", logoText:"HOSE" }
-  ],
-  mat: [
-    { id:"mat1", brand:"زیرانداز قلیان", enBrand:"Hookah Mat", model:"سیلیکونی ضدحرارت و نسوز", buy:45000, margin:30, sell:58500, stock:20, logoClass:"b-other", logoText:"MAT" },
-    { id:"mat2", brand:"زیرانداز طرح سنتی", enBrand:"Traditional Mat", model:"پارچه‌ای ضخیم طرح ترمه", buy:35000, margin:30, sell:45500, stock:15, logoClass:"b-other", logoText:"MAT" }
-  ],
-  coal: [
-    { id:"col1", brand:"زغال نارگیل", enBrand:"Coconut Charcoal", model:"مکعبی بدون بو ۱ کیلویی", buy:75000, margin:25, sell:94000, stock:40, logoClass:"b-charcoal", logoText:"COAL" },
-    { id:"col2", brand:"زغال سکه‌ای", enBrand:"Quick Charcoal", model:"خودسوز جرقه‌ای (رول)", buy:25000, margin:30, sell:32500, stock:60, logoClass:"b-charcoal", logoText:"COAL" }
-  ],
-  tobacco: [
-    { id:"t1", brand:"الفاخر", enBrand:"Al Fakher", model:"دوسیب ۲۵۰ گرم (Two Apples)", buy:95000, margin:20, sell:114000, stock:40, logoClass:"b-fakher", logoText:"AF" },
-    { id:"t2", brand:"مزایا", enBrand:"Mazaya", model:"نعناع یخ ۵۰ گرم (Mint Ice)", buy:35000, margin:20, sell:42000, stock:50, logoClass:"b-mazaya", logoText:"MAZ" },
-    { id:"t3", brand:"خوانسار", enBrand:"Khansar", model:"تنباکو چوبی سنتی اصل", buy:30000, margin:25, sell:37500, stock:45, logoClass:"b-other", logoText:"KHN" }
-  ],
-  pipe: [
-    { id:"p1", brand:"کاپیتان بلک", enBrand:"Captain Black", model:"توتون پیپ شکلاتی ۵۰ گرم", buy:180000, margin:20, sell:216000, stock:18, logoClass:"b-captain", logoText:"CAP" },
-    { id:"p2", brand:"مک بارن", enBrand:"Mac Baren", model:"توتون سیگارپیچ چویس ۴۰ گرم", buy:220000, margin:20, sell:264000, stock:12, logoClass:"b-other", logoText:"MAC" }
-  ],
-  paper: [
-    { id:"pap1", brand:"اسموکینگ", enBrand:"Smoking Paper", model:"قرمز ۵۰ برگ کلاسیک", buy:20000, margin:35, sell:27000, stock:60, logoClass:"b-other", logoText:"SMK" },
-    { id:"pap2", brand:"او سی بی", enBrand:"OCB Paper", model:"مشکی کینگ سایز با فیلتر", buy:35000, margin:30, sell:45500, stock:45, logoClass:"b-other", logoText:"OCB" },
-    { id:"pap3", brand:"گیزه", enBrand:"Gizeh Paper", model:"سبز مگنتی چسب‌دار", buy:25000, margin:30, sell:32500, stock:40, logoClass:"b-other", logoText:"GIZ" }
-  ],
-  ashtray: [
-    { id:"ash1", brand:"زیرسیگاری کریستال", enBrand:"Crystal Ashtray", model:"شیشه‌ای سنگین مدل کلاسیک", buy:55000, margin:30, sell:71500, stock:25, logoClass:"b-other", logoText:"ASH" },
-    { id:"ash2", brand:"زیرسیگاری اتومبیل", enBrand:"Car Ashtray", model:"لیوانی ال‌ای‌دی‌دار درب‌دار", buy:85000, margin:25, sell:106000, stock:15, logoClass:"b-other", logoText:"ASH" }
-  ],
-  lighter: [
-    { id:"l1", brand:"کلیپر", enBrand:"Clipper", model:"سنگی چخماقی طرح‌دار", buy:35000, margin:30, sell:45500, stock:50, logoClass:"b-clipper", logoText:"CLIP" },
-    { id:"l2", brand:"زیپو", enBrand:"Zippo", model:"کلاسیک بنزینی مات", buy:450000, margin:20, sell:540000, stock:8, logoClass:"b-zippo", logoText:"ZIP" }
-  ],
-  keychain: [
-    { id:"key1", brand:"جاسوئیچی فانتزی", enBrand:"Keychain", model:"طرح پیپ و سیگار فلزی", buy:35000, margin:35, sell:47000, stock:30, logoClass:"b-other", logoText:"KEY" },
-    { id:"key2", brand:"جاسوئیچی کلیپر", enBrand:"Clipper Keychain", model:"نگهدارنده فندک سیلیکونی", buy:20000, margin:40, sell:28000, stock:40, logoClass:"b-other", logoText:"KEY" }
-  ],
-  candle: [
-    { id:"cnd1", brand:"شمع وارمر", enBrand:"Warmer Candle", model:"بسته ۱۰۰ عددی بدون دود", buy:95000, margin:20, sell:114000, stock:20, logoClass:"b-other", logoText:"CND" },
-    { id:"cnd2", brand:"جاشمعی پیرکس", enBrand:"Glass Holder", model:"مخصوص وارمر ضدحرارت", buy:30000, margin:30, sell:39000, stock:25, logoClass:"b-other", logoText:"CND" }
-  ],
-  perfume: [
-    { id:"prf1", brand:"همدان", enBrand:"HEM", model:"عود دست‌ساز صندل (Sandal)", buy:45000, margin:30, sell:58500, stock:40, logoClass:"b-other", logoText:"HEM" },
-    { id:"prf2", brand:"جاعودی چوبی", enBrand:"Incense Holder", model:"خط‌کش چوب گردو منبت‌کاری", buy:35000, margin:30, sell:45500, stock:25, logoClass:"b-other", logoText:"INC" }
-  ],
-  fragrance: [
-    { id:"frg1", brand:"لطافه", enBrand:"Lattafa", model:"ادکلن اسد ۱۰۰ میل مشکی", buy:750000, margin:18, sell:885000, stock:8, logoClass:"b-other", logoText:"PRM" },
-    { id:"frg2", brand:"عطر جیبی", enBrand:"Pocket Perfume", model:"اسپری ۲۰ میل اسانس فرانسوی", buy:40000, margin:30, sell:52000, stock:30, logoClass:"b-other", logoText:"PRM" }
-  ],
-  drink: [
-    { id:"drk1", brand:"رانی", enBrand:"Rani Float", model:"آب‌میوه پالپ‌دار قوطی هلو", buy:22000, margin:20, sell:26500, stock:48, logoClass:"b-other", logoText:"RN" },
-    { id:"drk2", brand:"آب‌معدنی دماوند", enBrand:"Mineral Water", model:"نیم لیتری کوچک", buy:6000, margin:25, sell:7500, stock:60, logoClass:"b-other", logoText:"H2O" }
-  ]
+  coffee: [], hookah: [], hose: [], mat: [], coal: [], tobacco: [], pipe: [], paper: [], ashtray: [], lighter: [], keychain: [], candle: [], perfume: [], fragrance: [], drink: []
 };
 
-let products = JSON.parse(localStorage.getItem('osta_prod_v9')) || INITIAL_PRODUCTS;
-let invoices = JSON.parse(localStorage.getItem('osta_inv_v9')) || [];
-let debtors  = JSON.parse(localStorage.getItem('osta_deb_v9'))  || [];
-let lastBackupTime = localStorage.getItem('osta_last_backup_v9') || null;
+// کلید پایدار بدون تغییر در آینده
+const STORAGE_KEY_PROD = 'osta_main_database_products';
+const STORAGE_KEY_INV  = 'osta_main_database_invoices';
+const STORAGE_KEY_DEB  = 'osta_main_database_debtors';
 
+let products = JSON.parse(localStorage.getItem(STORAGE_KEY_PROD));
+let invoices = JSON.parse(localStorage.getItem(STORAGE_KEY_INV));
+let debtors  = JSON.parse(localStorage.getItem(STORAGE_KEY_DEB));
+
+// بازیابی خودکار داده‌های قدیمی در صورت نبود داده
+const oldStore = getLatestStoredData();
+if (!products && oldStore) {
+  products = oldStore.data;
+  invoices = getLatestInvoices();
+  debtors  = getLatestDebtors();
+  save();
+}
+
+if (!products) products = DEFAULT_PRODUCTS;
+if (!invoices) invoices = [];
+if (!debtors) debtors = [];
+
+// اطمینان از وجود تمام کلیدهای ۱۶ گانه
+const ALL_CATS = ['cig','coffee','hookah','hose','mat','coal','tobacco','pipe','paper','ashtray','lighter','keychain','candle','perfume','fragrance','drink'];
+ALL_CATS.forEach(c => { if (!products[c]) products[c] = []; });
+
+let lastBackupTime = localStorage.getItem('osta_last_backup_main') || null;
 let cart = [];
 let activePosCat = 'cig';
 let activeStockCat = 'cig';
 
 function save() {
-  localStorage.setItem('osta_prod_v9', JSON.stringify(products));
-  localStorage.setItem('osta_inv_v9', JSON.stringify(invoices));
-  localStorage.setItem('osta_deb_v9', JSON.stringify(debtors));
+  localStorage.setItem(STORAGE_KEY_PROD, JSON.stringify(products));
+  localStorage.setItem(STORAGE_KEY_INV, JSON.stringify(invoices));
+  localStorage.setItem(STORAGE_KEY_DEB, JSON.stringify(debtors));
 }
 
 const fa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
@@ -518,6 +506,43 @@ function matchTokens(targetStr, searchStr) {
   const tokens = searchStr.trim().toLowerCase().split(/\s+/);
   const target = targetStr.toLowerCase();
   return tokens.every(token => target.includes(token));
+}
+
+// دکمه بازگردانی دستی اطلاعات قدیمی در صورت نیاز
+function checkOldDataRecoveryBanner() {
+  const prev = getLatestStoredData();
+  const banner = document.getElementById('restoreBanner');
+  if (prev && prev.data) {
+    let oldItemCount = 0;
+    Object.values(prev.data).forEach(arr => { if(Array.isArray(arr)) oldItemCount += arr.length; });
+    let currentItemCount = 0;
+    Object.values(products).forEach(arr => { if(Array.isArray(arr)) currentItemCount += arr.length; });
+    
+    if (oldItemCount > currentItemCount) {
+      banner.style.display = 'flex';
+    }
+  }
+}
+
+function restoreOldVersionData() {
+  const prev = getLatestStoredData();
+  if (prev && prev.data) {
+    // ترکیب و بازگرداندن داده‌های قبل به نسخه فعلی
+    for (let cat in prev.data) {
+      if (!products[cat]) products[cat] = [];
+      prev.data[cat].forEach(item => {
+        const exists = products[cat].some(p => p.id === item.id || (p.brand === item.brand && p.model === item.model));
+        if (!exists) products[cat].push(item);
+      });
+    }
+    invoices = getLatestInvoices();
+    debtors = getLatestDebtors();
+    save();
+    document.getElementById('restoreBanner').style.display = 'none';
+    showAppAlert("تمام لیست‌ها و محصولات قبلی با موفقیت به انبار شما بازگردانده شدند!", function() {
+      location.reload();
+    });
+  }
 }
 
 function showAppAlert(msg, cb) {
@@ -637,7 +662,7 @@ function processQuickOrderFinal(text, pay, debtor) {
   }
 
   if (!found) {
-    showAppAlert("کالای مورد نظر با این مشخصات در سیستم پیدا نشد. لطفاً نام یا طعم را دقیق‌تر بنویسید.");
+    showAppAlert("کالای مورد نظر در سیستم پیدا نشد. لطفاً نام را دقیق‌تر وارد کنید.");
     return;
   }
 
@@ -674,7 +699,7 @@ function processQuickOrderFinal(text, pay, debtor) {
   save();
   document.getElementById('quickOrderInput').value = '';
   document.getElementById('quickDebtorName').value = '';
-  showAppAlert(`فاکتور صادر شد!\nمبلغ: ${money(total)}\nکسر شد: ${qty} عدد/بسته از ${found.brand} ${found.model}`);
+  showAppAlert(`فاکتور صادر شد!\nمبلغ: ${money(total)}\nکسر شد: ${qty} عدد از ${found.brand} ${found.model}`);
   renderDash();
 }
 
@@ -758,12 +783,12 @@ function submitNewArrival() {
 
 function renderDash() {
   const today = new Date().toISOString().split('T')[0];
-  const todayInvs = invoices.filter(i => i.date.startsWith(today));
+  const todayInvs = invoices.filter(i => i.date && i.date.startsWith(today));
   const tSales = todayInvs.reduce((s, i) => s + i.total, 0);
   const tProfit = todayInvs.reduce((s, i) => s + i.profit, 0);
 
   let sVal = 0;
-  Object.values(products).forEach(arr => arr.forEach(p => { sVal += (p.stock * p.buy); }));
+  Object.values(products).forEach(arr => { if(Array.isArray(arr)) arr.forEach(p => { sVal += (p.stock * p.buy); }); });
   const dVal = debtors.reduce((s, d) => s + d.amount, 0);
 
   document.getElementById('dTodaySales').innerText = money(tSales);
@@ -1211,7 +1236,7 @@ function checkWeeklyBackupReminder() {
 
 function exportData() {
   const timestamp = Date.now();
-  localStorage.setItem('osta_last_backup_v9', timestamp);
+  localStorage.setItem('osta_last_backup_main', timestamp);
   lastBackupTime = timestamp;
 
   const blob = new Blob([JSON.stringify({ products, invoices, debtors, backupDate: new Date().toISOString() })], { type: 'application/json' });
@@ -1247,6 +1272,7 @@ function importData(e) {
 
 document.getElementById('curDate').innerText = new Date().toLocaleDateString('fa-IR');
 checkWeeklyBackupReminder();
+checkOldDataRecoveryBanner();
 renderDash();
 </script>
 </body>
