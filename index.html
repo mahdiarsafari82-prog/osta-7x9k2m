@@ -50,8 +50,8 @@ h1 { font-size:22px; font-weight:900; background:linear-gradient(135deg,var(--go
 .card-h { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
 .card-t { font-size:13px; font-weight:900; color:var(--gold2); }
 
-.sub-tabs { display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; }
-.sub-tab { padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:rgba(255,255,255,0.02); color:var(--muted); cursor:pointer; font-size:11px; font-weight:700; white-space:nowrap; }
+.sub-tabs { display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; padding-bottom:4px; }
+.sub-tab { padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:rgba(255,255,255,0.02); color:var(--muted); cursor:pointer; font-size:11px; font-weight:700; white-space:nowrap; flex-shrink:0; }
 .sub-tab.active { background:var(--gold); color:#000; }
 
 .btn { border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:700; background:linear-gradient(135deg,var(--gold2),var(--gold)); color:#110e05; }
@@ -68,7 +68,6 @@ input, select { background:#111118; border:1px solid var(--line); color:var(--te
 .radio-group label { display:flex; align-items:center; gap:5px; cursor:pointer; }
 .radio-group input { width:auto; cursor:pointer; }
 
-/* آیکون و نشانگر برندها */
 .brand-badge { width:24px; height:24px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:900; color:#fff; margin-left:6px; flex-shrink:0; vertical-align:middle; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
 .b-winston { background:linear-gradient(135deg,#c62828,#e53935); border:1px solid #ff8a80; }
 .b-marlboro { background:linear-gradient(135deg,#d50000,#ff1744); border:1px solid #ff8a80; }
@@ -101,7 +100,6 @@ th { color:var(--muted); font-size:11px; }
 .modal-title { font-size:14px; font-weight:900; color:var(--gold2); margin-bottom:10px; }
 .modal-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
 
-/* استایل مخصوص چاپ و پرینت استاندارد فاکتورها */
 #printArea { display:none; }
 @media print {
   body > * { display:none !important; }
@@ -167,10 +165,11 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
+  <!-- صفحه اصلی -->
   <div class="page active" id="dash">
     <div class="quick-box">
       <div style="font-weight:bold; font-size:13px; color:var(--gold2);">⚡ ثبت سریع فروش / نسیه با پیام صوتی یا متن:</div>
-      <input id="quickOrderInput" placeholder="مثال: ۱ پاکت وینستون لایت یا 2 بسته الفاخر دوسیب..." />
+      <input id="quickOrderInput" placeholder="مثال: ۱ پاکت وینستون لایت آبی یا 2 بسته الفاخر دوسیب..." />
       
       <div class="radio-group">
         <label><input type="radio" name="quickPay" value="cash" checked onchange="toggleQuickDebtor()"> 🟢 خرید نقدی / کارت‌خوان</label>
@@ -208,6 +207,7 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
+  <!-- ثبت بار جدید (خرید مغازه‌دار) -->
   <div class="page" id="newstock">
     <div class="card">
       <div class="card-h"><div class="card-t">📥 ورود بار و خرید جدید مغازه‌دار</div></div>
@@ -216,23 +216,33 @@ th { color:var(--muted); font-size:11px; }
           <label style="font-size:10px; color:var(--muted)">دسته‌بندی کالا</label>
           <select id="newCat">
             <option value="cig">سیگارها (Cigarettes)</option>
+            <option value="coffee">انواع قهوه (Coffee)</option>
+            <option value="hookah">قلیان (Hookah)</option>
+            <option value="hose">شلنگ قلیان (Hookah Hose)</option>
+            <option value="mat">زیرانداز قلیان (Hookah Mat)</option>
+            <option value="coal">زغال (Charcoal)</option>
             <option value="tobacco">تنباکو قلیان (Tobacco)</option>
-            <option value="hookah_coal">قلیون / ذغال (Hookah &amp; Charcoal)</option>
+            <option value="pipe">توتون و سیگارپیچ (Pipe &amp; Tobacco)</option>
+            <option value="paper">انواع پیپر و رول (Rolling Papers)</option>
+            <option value="ashtray">زیرسیگاری (Ashtrays)</option>
             <option value="lighter">فندک و ملزومات (Lighters)</option>
-            <option value="pipe">توتون پیپ و پیچ (Pipe &amp; Rolling)</option>
-            <option value="perfume">عود و خوشبوکننده (Incense)</option>
+            <option value="keychain">جاسوئیچی (Keychains)</option>
+            <option value="candle">شمع و جاشمعی (Candles)</option>
+            <option value="perfume">عود و جاعودی (Incense)</option>
+            <option value="fragrance">عطر و ادکلن (Perfume)</option>
+            <option value="drink">آب‌میوه و آب‌معدنی (Drinks)</option>
           </select>
         </div>
         <div>
           <label style="font-size:10px; color:var(--muted)">مارک / برند کالا</label>
-          <input id="newBrand" placeholder="مثال: وینستون / Winston" />
+          <input id="newBrand" placeholder="مثال: وینستون / اسپرسو لاوازا" />
         </div>
       </div>
 
       <div class="form-row">
         <div>
           <label style="font-size:10px; color:var(--muted)">مدل / طعم / مشخصه</label>
-          <input id="newModel" placeholder="مثال: لایت آبی / دوسیب" />
+          <input id="newModel" placeholder="مثال: لایت آبی / قوطی ۲۵۰ گرم" />
         </div>
         <div>
           <label style="font-size:10px; color:var(--muted)">تعداد بسته / پاکت / عدد</label>
@@ -259,17 +269,28 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
+  <!-- فروش دستی -->
   <div class="page" id="pos">
     <div class="sub-tabs">
       <button class="sub-tab active" onclick="switchPosCat('cig', this)">🚬 سیگارها</button>
+      <button class="sub-tab" onclick="switchPosCat('coffee', this)">☕ انواع قهوه</button>
+      <button class="sub-tab" onclick="switchPosCat('hookah', this)">💨 قلیان</button>
+      <button class="sub-tab" onclick="switchPosCat('hose', this)">🐍 شلنگ قلیان</button>
+      <button class="sub-tab" onclick="switchPosCat('mat', this)">🛡️ زیرانداز قلیان</button>
+      <button class="sub-tab" onclick="switchPosCat('coal', this)">🔥 زغال</button>
       <button class="sub-tab" onclick="switchPosCat('tobacco', this)">🍃 تنباکو</button>
-      <button class="sub-tab" onclick="switchPosCat('hookah_coal', this)">💨 قلیون / ذغال</button>
+      <button class="sub-tab" onclick="switchPosCat('pipe', this)">🍂 توتون و سیگارپیچ</button>
+      <button class="sub-tab" onclick="switchPosCat('paper', this)">📜 انواع پیپر</button>
+      <button class="sub-tab" onclick="switchPosCat('ashtray', this)">🚬 زیرسیگاری</button>
       <button class="sub-tab" onclick="switchPosCat('lighter', this)">🔥 فندک</button>
-      <button class="sub-tab" onclick="switchPosCat('pipe', this)">🍂 توتون</button>
-      <button class="sub-tab" onclick="switchPosCat('perfume', this)">✨ عود</button>
+      <button class="sub-tab" onclick="switchPosCat('keychain', this)">🔑 جاسوئیچی</button>
+      <button class="sub-tab" onclick="switchPosCat('candle', this)">🕯️ شمع و جاشمعی</button>
+      <button class="sub-tab" onclick="switchPosCat('perfume', this)">✨ عود و جاعودی</button>
+      <button class="sub-tab" onclick="switchPosCat('fragrance', this)">🌸 عطر و ادکلن</button>
+      <button class="sub-tab" onclick="switchPosCat('drink', this)">🥤 آب‌میوه و آب</button>
     </div>
     <div class="card">
-      <input id="posSearch" placeholder="جستجوی سریع کالا (فارسی یا English)..." oninput="renderPosPicker()" style="margin-bottom:10px;">
+      <input id="posSearch" placeholder="جستجوی دقیق کالا (مثال: وینستون آبی / اسموکینگ قرمز)..." oninput="renderPosPicker()" style="margin-bottom:10px;">
       <div id="posPicker" style="max-height:240px; overflow-y:auto;"></div>
     </div>
     <div class="card">
@@ -296,6 +317,7 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
+  <!-- فاکتورها -->
   <div class="page" id="invoices">
     <div class="card">
       <div class="card-h">
@@ -315,23 +337,37 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
+  <!-- انبارداری همراه با قابلیت جستجوی دقیق -->
   <div class="page" id="stock">
     <div class="sub-tabs">
       <button class="sub-tab active" onclick="switchStockCat('cig', this)">🚬 سیگار</button>
+      <button class="sub-tab" onclick="switchStockCat('coffee', this)">☕ انواع قهوه</button>
+      <button class="sub-tab" onclick="switchStockCat('hookah', this)">💨 قلیان</button>
+      <button class="sub-tab" onclick="switchStockCat('hose', this)">🐍 شلنگ قلیان</button>
+      <button class="sub-tab" onclick="switchStockCat('mat', this)">🛡️ زیرانداز قلیان</button>
+      <button class="sub-tab" onclick="switchStockCat('coal', this)">🔥 زغال</button>
       <button class="sub-tab" onclick="switchStockCat('tobacco', this)">🍃 تنباکو</button>
-      <button class="sub-tab" onclick="switchStockCat('hookah_coal', this)">💨 قلیون / ذغال</button>
+      <button class="sub-tab" onclick="switchStockCat('pipe', this)">🍂 توتون و سیگارپیچ</button>
+      <button class="sub-tab" onclick="switchStockCat('paper', this)">📜 انواع پیپر</button>
+      <button class="sub-tab" onclick="switchStockCat('ashtray', this)">🚬 زیرسیگاری</button>
       <button class="sub-tab" onclick="switchStockCat('lighter', this)">🔥 فندک</button>
-      <button class="sub-tab" onclick="switchStockCat('pipe', this)">🍂 توتون</button>
-      <button class="sub-tab" onclick="switchStockCat('perfume', this)">✨ عود</button>
+      <button class="sub-tab" onclick="switchStockCat('keychain', this)">🔑 جاسوئیچی</button>
+      <button class="sub-tab" onclick="switchStockCat('candle', this)">🕯️ شمع و جاشمعی</button>
+      <button class="sub-tab" onclick="switchStockCat('perfume', this)">✨ عود و جاعودی</button>
+      <button class="sub-tab" onclick="switchStockCat('fragrance', this)">🌸 عطر و ادکلن</button>
+      <button class="sub-tab" onclick="switchStockCat('drink', this)">🥤 آب‌میوه و آب</button>
     </div>
     <div class="card">
       <div class="card-h">
         <div class="card-t" id="stockCatTitle">موجودی انبار</div>
       </div>
+      <!-- کادر جستجوی مستقل برای بخش انبارداری -->
+      <input id="stockSearchInput" placeholder="🔍 جستجوی سریع نام یا مشخصات کالا در این دسته..." oninput="renderStock()" style="margin-bottom:12px;">
       <div id="stockList"></div>
     </div>
   </div>
 
+  <!-- دفتر نسیه -->
   <div class="page" id="debts">
     <div class="card">
       <div class="card-h">
@@ -347,6 +383,7 @@ th { color:var(--muted); font-size:11px; }
     </div>
   </div>
 
+  <!-- پشتیبان هفتگی -->
   <div class="page" id="backup">
     <div class="card">
       <div class="card-h"><div class="card-t">💾 مدیریت پشتیبان‌گیری هفتگی و حفظ داده‌ها</div></div>
@@ -383,81 +420,105 @@ th { color:var(--muted); font-size:11px; }
 <div id="printArea"></div>
 
 <script>
-// دیتابیس کامل با برندها و لوگوهای تصویری
 const INITIAL_PRODUCTS = {
   cig: [
     { id:"c1", brand:"وینستون", enBrand:"Winston", model:"لایت آبی (Lights)", buy:100000, margin:15, sell:115000, stock:50, logoClass:"b-winston", logoText:"WIN" },
     { id:"c2", brand:"وینستون", enBrand:"Winston", model:"قرمز کلاسیک (Classic)", buy:100000, margin:15, sell:115000, stock:40, logoClass:"b-winston", logoText:"WIN" },
     { id:"c3", brand:"وینستون", enBrand:"Winston", model:"ایکس‌استایل (XStyle)", buy:105000, margin:15, sell:120000, stock:30, logoClass:"b-winston", logoText:"WIN" },
-    { id:"c4", brand:"وینستون", enBrand:"Winston", model:"کستر سفید (Caster)", buy:110000, margin:18, sell:130000, stock:25, logoClass:"b-winston", logoText:"WIN" },
-    { id:"c5", brand:"مارلبرو", enBrand:"Marlboro", model:"رد قرمز (Red)", buy:150000, margin:20, sell:180000, stock:35, logoClass:"b-marlboro", logoText:"PM" },
-    { id:"c6", brand:"مارلبرو", enBrand:"Marlboro", model:"گلد طلایی (Gold)", buy:150000, margin:20, sell:180000, stock:30, logoClass:"b-marlboro", logoText:"PM" },
-    { id:"c7", brand:"مارلبرو", enBrand:"Marlboro", model:"تاچ مشکی (Touch)", buy:140000, margin:20, sell:168000, stock:20, logoClass:"b-marlboro", logoText:"PM" },
-    { id:"c8", brand:"کنت", enBrand:"Kent", model:"پاور سوئیچ نعنایی (Switch)", buy:95000, margin:15, sell:110000, stock:40, logoClass:"b-kent", logoText:"KNT" },
-    { id:"c9", brand:"کنت", enBrand:"Kent", model:"آبی ۸ (Blue)", buy:90000, margin:15, sell:103500, stock:35, logoClass:"b-kent", logoText:"KNT" },
-    { id:"c10", brand:"کنت", enBrand:"Kent", model:"نانو نقره‌ای (Nano)", buy:95000, margin:15, sell:110000, stock:25, logoClass:"b-kent", logoText:"KNT" },
-    { id:"c11", brand:"بهمن", enBrand:"Bahman", model:"کوچک سوئیسی (Short)", buy:85000, margin:15, sell:98000, stock:60, logoClass:"b-bahman", logoText:"BAH" },
-    { id:"c12", brand:"بهمن", enBrand:"Bahman", model:"کتابی قرمز (Hard)", buy:90000, margin:15, sell:103500, stock:45, logoClass:"b-bahman", logoText:"BAH" },
-    { id:"c13", brand:"بهمن", enBrand:"Bahman", model:"باریک مشکی (Slims)", buy:90000, margin:15, sell:103500, stock:30, logoClass:"b-bahman", logoText:"BAH" },
-    { id:"c14", brand:"سناتور", enBrand:"Senator", model:"شرابی / شکلاتی فلزی", buy:130000, margin:20, sell:156000, stock:20, logoClass:"b-senator", logoText:"SEN" },
-    { id:"c15", brand:"کاپیتان بلک", enBrand:"Captain Black", model:"شکلاتی دارک کرما", buy:120000, margin:20, sell:144000, stock:25, logoClass:"b-captain", logoText:"CAP" },
-    { id:"c16", brand:"اسه", enBrand:"Esse", model:"چنج بلوبری (Change)", buy:95000, margin:15, sell:110000, stock:35, logoClass:"b-esse", logoText:"ESE" },
-    { id:"c17", brand:"مگنا", enBrand:"Magna", model:"قرمز کلاسیک", buy:75000, margin:15, sell:86000, stock:50, logoClass:"b-magna", logoText:"MAG" }
+    { id:"c4", brand:"مارلبرو", enBrand:"Marlboro", model:"رد قرمز (Red)", buy:150000, margin:20, sell:180000, stock:35, logoClass:"b-marlboro", logoText:"PM" },
+    { id:"c5", brand:"مارلبرو", enBrand:"Marlboro", model:"گلد طلایی (Gold)", buy:150000, margin:20, sell:180000, stock:30, logoClass:"b-marlboro", logoText:"PM" },
+    { id:"c6", brand:"کنت", enBrand:"Kent", model:"پاور سوئیچ نعنایی (Switch)", buy:95000, margin:15, sell:110000, stock:40, logoClass:"b-kent", logoText:"KNT" },
+    { id:"c7", brand:"بهمن", enBrand:"Bahman", model:"کوچک سوئیسی (Short)", buy:85000, margin:15, sell:98000, stock:60, logoClass:"b-bahman", logoText:"BAH" }
+  ],
+  coffee: [
+    { id:"cof1", brand:"لاوازا", enBrand:"Lavazza", model:"اسپرسو کوالیتا روسا ۲۵۰ گرم", buy:240000, margin:20, sell:288000, stock:15, logoClass:"b-other", logoText:"COF" },
+    { id:"cof2", brand:"ایلی", enBrand:"Illy", model:"دانه کلاسیک رست متوسط", buy:450000, margin:18, sell:531000, stock:10, logoClass:"b-other", logoText:"COF" },
+    { id:"cof3", brand:"نسکافه", enBrand:"Nescafe", model:"گلد فوری ۱۰۰ گرمی", buy:180000, margin:20, sell:216000, stock:20, logoClass:"b-other", logoText:"NES" }
+  ],
+  hookah: [
+    { id:"h1", brand:"قلیان برنجی", enBrand:"Brass Hookah", model:"خوانسار سنتی ست کامل", buy:950000, margin:25, sell:1187000, stock:6, logoClass:"b-hookah", logoText:"HOOK" },
+    { id:"h2", brand:"قلیان کرافت", enBrand:"Craft Hookah", model:"استیل مدرن مسافرتی", buy:650000, margin:25, sell:812000, stock:8, logoClass:"b-hookah", logoText:"HOOK" }
+  ],
+  hose: [
+    { id:"hos1", brand:"شلنگ یکبارمصرف", enBrand:"Disposable Hose", model:"اسفنجی دسته بلند", buy:15000, margin:40, sell:21000, stock:50, logoClass:"b-hookah", logoText:"HOSE" },
+    { id:"hos2", brand:"شلنگ چرمی", enBrand:"Leather Hose", model:"چرم طبیعی سنتی دست‌ساز", buy:120000, margin:25, sell:150000, stock:12, logoClass:"b-hookah", logoText:"HOSE" }
+  ],
+  mat: [
+    { id:"mat1", brand:"زیرانداز قلیان", enBrand:"Hookah Mat", model:"سیلیکونی ضدحرارت و نسوز", buy:45000, margin:30, sell:58500, stock:20, logoClass:"b-other", logoText:"MAT" },
+    { id:"mat2", brand:"زیرانداز طرح سنتی", enBrand:"Traditional Mat", model:"پارچه‌ای ضخیم طرح ترمه", buy:35000, margin:30, sell:45500, stock:15, logoClass:"b-other", logoText:"MAT" }
+  ],
+  coal: [
+    { id:"col1", brand:"زغال نارگیل", enBrand:"Coconut Charcoal", model:"مکعبی بدون بو ۱ کیلویی", buy:75000, margin:25, sell:94000, stock:40, logoClass:"b-charcoal", logoText:"COAL" },
+    { id:"col2", brand:"زغال سکه‌ای", enBrand:"Quick Charcoal", model:"خودسوز جرقه‌ای (رول)", buy:25000, margin:30, sell:32500, stock:60, logoClass:"b-charcoal", logoText:"COAL" }
   ],
   tobacco: [
     { id:"t1", brand:"الفاخر", enBrand:"Al Fakher", model:"دوسیب ۲۵۰ گرم (Two Apples)", buy:95000, margin:20, sell:114000, stock:40, logoClass:"b-fakher", logoText:"AF" },
-    { id:"t2", brand:"الفاخر", enBrand:"Al Fakher", model:"انگور سیاه (Black Grape)", buy:95000, margin:20, sell:114000, stock:25, logoClass:"b-fakher", logoText:"AF" },
-    { id:"t3", brand:"الفاخر", enBrand:"Al Fakher", model:"لیمو نعناع (Lemon Mint)", buy:95000, margin:20, sell:114000, stock:30, logoClass:"b-fakher", logoText:"AF" },
-    { id:"t4", brand:"مزایا", enBrand:"Mazaya", model:"نعناع یخ ۵۰ گرم (Mint Ice)", buy:35000, margin:20, sell:42000, stock:50, logoClass:"b-mazaya", logoText:"MAZ" },
-    { id:"t5", brand:"مزایا", enBrand:"Mazaya", model:"بلوبری (Blueberry)", buy:35000, margin:20, sell:42000, stock:35, logoClass:"b-mazaya", logoText:"MAZ" },
-    { id:"t6", brand:"ادالیا", enBrand:"Adalya", model:"لاو ۶۶ (Love 66)", buy:45000, margin:20, sell:54000, stock:30, logoClass:"b-adalya", logoText:"ADL" },
-    { id:"t7", brand:"خوانسار", enBrand:"Khansar", model:"تنباکو چوبی سنتی اصل", buy:30000, margin:25, sell:37500, stock:45, logoClass:"b-other", logoText:"KHN" }
-  ],
-  hookah_coal: [
-    { id:"h1", brand:"زغال نارگیل", enBrand:"Coconut Charcoal", model:"مکعبی بدون دود ۱ کیلویی", buy:75000, margin:25, sell:94000, stock:40, logoClass:"b-charcoal", logoText:"COAL" },
-    { id:"h2", brand:"زغال سکه‌ای", enBrand:"Quick Charcoal", model:"خودسوز جرقه‌ای (رول)", buy:25000, margin:30, sell:32500, stock:60, logoClass:"b-charcoal", logoText:"COAL" },
-    { id:"h3", brand:"قلیان برنجی", enBrand:"Brass Hookah", model:"خوانسار سنتی ست کامل", buy:95000, margin:25, sell:1187000, stock:6, logoClass:"b-hookah", logoText:"HOOK" },
-    { id:"h4", brand:"قلیان کرافت", enBrand:"Craft Hookah", model:"استیل مدرن مسافرتی", buy:650000, margin:25, sell:812000, stock:8, logoClass:"b-hookah", logoText:"HOOK" },
-    { id:"h5", brand:"فویل قلیان", enBrand:"Hookah Foil", model:"سوراخ‌دار آماده بسته ۱۰۰ تایی", buy:30000, margin:30, sell:39000, stock:30, logoClass:"b-hookah", logoText:"FOIL" },
-    { id:"h6", brand:"شیلنگ یکبارمصرف", enBrand:"Hookah Hose", model:"اسفنجی دسته بلند", buy:15000, margin:40, sell:21000, stock:50, logoClass:"b-hookah", logoText:"HOSE" }
-  ],
-  lighter: [
-    { id:"l1", brand:"کلیپر", enBrand:"Clipper", model:"سنگی چخماقی طرح‌دار", buy:35000, margin:30, sell:45500, stock:50, logoClass:"b-clipper", logoText:"CLIP" },
-    { id:"l2", brand:"کلیپر فلزی", enBrand:"Clipper Metal", model:"جعبه فلزی کادویی", buy:140000, margin:25, sell:175000, stock:15, logoClass:"b-clipper", logoText:"CLIP" },
-    { id:"l3", brand:"زیپو", enBrand:"Zippo", model:"کلاسیک بنزینی مات", buy:450000, margin:20, sell:54000, stock:8, logoClass:"b-zippo", logoText:"ZIP" },
-    { id:"l4", brand:"فندک اتمی", enBrand:"Torch Lighter", model:"توربو ۳ شعله زغال‌زن", buy:85000, margin:25, sell:106000, stock:20, logoClass:"b-clipper", logoText:"TRCH" },
-    { id:"l5", brand:"گاز فندک", enBrand:"Lighter Gas", model:"کپسول ۳۰۰ میل تصفیه‌شده", buy:40000, margin:30, sell:52000, stock:25, logoClass:"b-other", logoText:"GAS" },
-    { id:"l6", brand:"بنزین زیپو", enBrand:"Zippo Fluid", model:"سوخت اصل ۱۲۵ میل", buy:85000, margin:20, sell:102000, stock:15, logoClass:"b-zippo", logoText:"ZIP" }
+    { id:"t2", brand:"مزایا", enBrand:"Mazaya", model:"نعناع یخ ۵۰ گرم (Mint Ice)", buy:35000, margin:20, sell:42000, stock:50, logoClass:"b-mazaya", logoText:"MAZ" },
+    { id:"t3", brand:"خوانسار", enBrand:"Khansar", model:"تنباکو چوبی سنتی اصل", buy:30000, margin:25, sell:37500, stock:45, logoClass:"b-other", logoText:"KHN" }
   ],
   pipe: [
     { id:"p1", brand:"کاپیتان بلک", enBrand:"Captain Black", model:"توتون پیپ شکلاتی ۵۰ گرم", buy:180000, margin:20, sell:216000, stock:18, logoClass:"b-captain", logoText:"CAP" },
-    { id:"p2", brand:"مک بارن", enBrand:"Mac Baren", model:"چری чойс ۵۰ گرم", buy:220000, margin:20, sell:264000, stock:12, logoClass:"b-other", logoText:"MAC" },
-    { id:"p3", brand:"کاغذ اسموکینگ", enBrand:"Smoking Paper", model:"دفترچه قرمز ۵۰ برگ", buy:20000, margin:35, sell:27000, stock:60, logoClass:"b-other", logoText:"SMK" },
-    { id:"p4", brand:"فیلتر دست‌پیچ", enBrand:"Filter Tips", model:"نخی ۶ میل بسته ۱۲۰ عددی", buy:35000, margin:30, sell:45500, stock:40, logoClass:"b-other", logoText:"FLT" }
+    { id:"p2", brand:"مک بارن", enBrand:"Mac Baren", model:"توتون سیگارپیچ چویس ۴۰ گرم", buy:220000, margin:20, sell:264000, stock:12, logoClass:"b-other", logoText:"MAC" }
+  ],
+  paper: [
+    { id:"pap1", brand:"اسموکینگ", enBrand:"Smoking Paper", model:"قرمز ۵۰ برگ کلاسیک", buy:20000, margin:35, sell:27000, stock:60, logoClass:"b-other", logoText:"SMK" },
+    { id:"pap2", brand:"او سی بی", enBrand:"OCB Paper", model:"مشکی کینگ سایز با فیلتر", buy:35000, margin:30, sell:45500, stock:45, logoClass:"b-other", logoText:"OCB" },
+    { id:"pap3", brand:"گیزه", enBrand:"Gizeh Paper", model:"سبز مگنتی چسب‌دار", buy:25000, margin:30, sell:32500, stock:40, logoClass:"b-other", logoText:"GIZ" }
+  ],
+  ashtray: [
+    { id:"ash1", brand:"زیرسیگاری کریستال", enBrand:"Crystal Ashtray", model:"شیشه‌ای سنگین مدل کلاسیک", buy:55000, margin:30, sell:71500, stock:25, logoClass:"b-other", logoText:"ASH" },
+    { id:"ash2", brand:"زیرسیگاری اتومبیل", enBrand:"Car Ashtray", model:"لیوانی ال‌ای‌دی‌دار درب‌دار", buy:85000, margin:25, sell:106000, stock:15, logoClass:"b-other", logoText:"ASH" }
+  ],
+  lighter: [
+    { id:"l1", brand:"کلیپر", enBrand:"Clipper", model:"سنگی چخماقی طرح‌دار", buy:35000, margin:30, sell:45500, stock:50, logoClass:"b-clipper", logoText:"CLIP" },
+    { id:"l2", brand:"زیپو", enBrand:"Zippo", model:"کلاسیک بنزینی مات", buy:450000, margin:20, sell:540000, stock:8, logoClass:"b-zippo", logoText:"ZIP" }
+  ],
+  keychain: [
+    { id:"key1", brand:"جاسوئیچی فانتزی", enBrand:"Keychain", model:"طرح پیپ و سیگار فلزی", buy:35000, margin:35, sell:47000, stock:30, logoClass:"b-other", logoText:"KEY" },
+    { id:"key2", brand:"جاسوئیچی کلیپر", enBrand:"Clipper Keychain", model:"نگهدارنده فندک سیلیکونی", buy:20000, margin:40, sell:28000, stock:40, logoClass:"b-other", logoText:"KEY" }
+  ],
+  candle: [
+    { id:"cnd1", brand:"شمع وارمر", enBrand:"Warmer Candle", model:"بسته ۱۰۰ عددی بدون دود", buy:95000, margin:20, sell:114000, stock:20, logoClass:"b-other", logoText:"CND" },
+    { id:"cnd2", brand:"جاشمعی پیرکس", enBrand:"Glass Holder", model:"مخصوص وارمر ضدحرارت", buy:30000, margin:30, sell:39000, stock:25, logoClass:"b-other", logoText:"CND" }
   ],
   perfume: [
-    { id:"o1", brand:"همدان", enBrand:"HEM", model:"عود دست‌ساز صندل (Sandal)", buy:45000, margin:30, sell:58500, stock:40, logoClass:"b-other", logoText:"HEM" },
-    { id:"o2", brand:"هفت چاکرا", enBrand:"Seven Chakras", model:"انرژی‌بخش طبیعی", buy:50000, margin:30, sell:65000, stock:30, logoClass:"b-other", logoText:"CHK" }
+    { id:"prf1", brand:"همدان", enBrand:"HEM", model:"عود دست‌ساز صندل (Sandal)", buy:45000, margin:30, sell:58500, stock:40, logoClass:"b-other", logoText:"HEM" },
+    { id:"prf2", brand:"جاعودی چوبی", enBrand:"Incense Holder", model:"خط‌کش چوب گردو منبت‌کاری", buy:35000, margin:30, sell:45500, stock:25, logoClass:"b-other", logoText:"INC" }
+  ],
+  fragrance: [
+    { id:"frg1", brand:"لطافه", enBrand:"Lattafa", model:"ادکلن اسد ۱۰۰ میل مشکی", buy:750000, margin:18, sell:885000, stock:8, logoClass:"b-other", logoText:"PRM" },
+    { id:"frg2", brand:"عطر جیبی", enBrand:"Pocket Perfume", model:"اسپری ۲۰ میل اسانس فرانسوی", buy:40000, margin:30, sell:52000, stock:30, logoClass:"b-other", logoText:"PRM" }
+  ],
+  drink: [
+    { id:"drk1", brand:"رانی", enBrand:"Rani Float", model:"آب‌میوه پالپ‌دار قوطی هلو", buy:22000, margin:20, sell:26500, stock:48, logoClass:"b-other", logoText:"RN" },
+    { id:"drk2", brand:"آب‌معدنی دماوند", enBrand:"Mineral Water", model:"نیم لیتری کوچک", buy:6000, margin:25, sell:7500, stock:60, logoClass:"b-other", logoText:"H2O" }
   ]
 };
 
-let products = JSON.parse(localStorage.getItem('osta_prod_v8')) || INITIAL_PRODUCTS;
-let invoices = JSON.parse(localStorage.getItem('osta_inv_v8')) || [];
-let debtors  = JSON.parse(localStorage.getItem('osta_deb_v8'))  || [];
-let lastBackupTime = localStorage.getItem('osta_last_backup_v8') || null;
+let products = JSON.parse(localStorage.getItem('osta_prod_v9')) || INITIAL_PRODUCTS;
+let invoices = JSON.parse(localStorage.getItem('osta_inv_v9')) || [];
+let debtors  = JSON.parse(localStorage.getItem('osta_deb_v9'))  || [];
+let lastBackupTime = localStorage.getItem('osta_last_backup_v9') || null;
 
 let cart = [];
 let activePosCat = 'cig';
 let activeStockCat = 'cig';
 
 function save() {
-  localStorage.setItem('osta_prod_v8', JSON.stringify(products));
-  localStorage.setItem('osta_inv_v8', JSON.stringify(invoices));
-  localStorage.setItem('osta_deb_v8', JSON.stringify(debtors));
+  localStorage.setItem('osta_prod_v9', JSON.stringify(products));
+  localStorage.setItem('osta_inv_v9', JSON.stringify(invoices));
+  localStorage.setItem('osta_deb_v9', JSON.stringify(debtors));
 }
 
 const fa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 const money = n => fa(Number(Math.round(n||0)).toLocaleString('en-US')) + ' تومان';
+
+function matchTokens(targetStr, searchStr) {
+  if (!searchStr || !searchStr.trim()) return true;
+  const tokens = searchStr.trim().toLowerCase().split(/\s+/);
+  const target = targetStr.toLowerCase();
+  return tokens.every(token => target.includes(token));
+}
 
 function showAppAlert(msg, cb) {
   const m = document.getElementById('customModal');
@@ -531,7 +592,7 @@ function toggleQuickDebtor() {
 
 function submitQuickOrder() {
   const text = document.getElementById('quickOrderInput').value.trim();
-  if (!text) { showAppAlert("لطفاً عبارت سفارش را وارد کنید (مثال: ۱ پاکت وینستون لایت)."); return; }
+  if (!text) { showAppAlert("لطفاً مشخصات سفارش را وارد کنید (مثال: ۱ پاکت وینستون لایت آبی)."); return; }
 
   const pay = document.querySelector('input[name="quickPay"]:checked').value;
   let debtor = document.getElementById('quickDebtorName').value.trim();
@@ -557,16 +618,16 @@ function processQuickOrderFinal(text, pay, debtor) {
     qty = Number(qtyMatch[0].replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
   }
 
+  let cleanText = text.replace(qtyMatch ? qtyMatch[0] : '', '').trim();
+  cleanText = cleanText.replace(/پاکت|بسته|عدد|باکس/g, '').trim();
+
   let found = null;
   let targetCat = null;
-  const cleanText = text.toLowerCase();
 
   for (let cat in products) {
     for (let p of products[cat]) {
-      const bFa = (p.brand || '').toLowerCase();
-      const bEn = (p.enBrand || '').toLowerCase();
-      const mFa = (p.model || '').toLowerCase();
-      if (cleanText.includes(bFa) || (bEn && cleanText.includes(bEn)) || cleanText.includes(mFa)) {
+      const full = `${p.brand} ${p.enBrand || ''} ${p.model}`.toLowerCase();
+      if (matchTokens(full, cleanText)) {
         found = p;
         targetCat = cat;
         break;
@@ -576,12 +637,12 @@ function processQuickOrderFinal(text, pay, debtor) {
   }
 
   if (!found) {
-    showAppAlert("کالای مورد نظر در سیستم پیدا نشد. لطفاً نام یا برند را بررسی کنید.");
+    showAppAlert("کالای مورد نظر با این مشخصات در سیستم پیدا نشد. لطفاً نام یا طعم را دقیق‌تر بنویسید.");
     return;
   }
 
   if (found.stock < qty) {
-    showAppAlert(`موجودی کافی نیست! موجودی فعلی: ${found.stock} بسته/عدد.`);
+    showAppAlert(`موجودی کافی نیست! موجودی فعلی: ${found.stock} عدد/بسته.`);
     return;
   }
 
@@ -613,7 +674,7 @@ function processQuickOrderFinal(text, pay, debtor) {
   save();
   document.getElementById('quickOrderInput').value = '';
   document.getElementById('quickDebtorName').value = '';
-  showAppAlert(`فاکتور صادر شد!\nمبلغ کل: ${money(total)}\nکسر شد: ${qty} عدد/بسته ${found.brand} ${found.model}`);
+  showAppAlert(`فاکتور صادر شد!\nمبلغ: ${money(total)}\nکسر شد: ${qty} عدد/بسته از ${found.brand} ${found.model}`);
   renderDash();
 }
 
@@ -643,11 +704,13 @@ function submitNewArrival() {
   let sell = Number(document.getElementById('newSellPrice').value || 0);
 
   if (!brand || qty <= 0 || buy <= 0) {
-    showAppAlert("لطفاً مشخصات، تعداد و قیمت خرید را معتبر پر کنید.");
+    showAppAlert("لطفاً اطلاعات کالا، تعداد و قیمت خرید را معتبر وارد کنید.");
     return;
   }
 
   if (sell <= 0) sell = Math.round(buy * (1 + margin / 100));
+
+  if (!products[cat]) products[cat] = [];
 
   const existing = products[cat].find(p => p.brand.toLowerCase() === brand.toLowerCase() && p.model.toLowerCase() === model.toLowerCase());
   if (existing) {
@@ -684,7 +747,7 @@ function submitNewArrival() {
   }
 
   save();
-  showAppAlert(`کالای «${brand}» با تعداد ${qty} در انبار ثبت گردید.`);
+  showAppAlert(`کالای «${brand}» به تعداد ${qty} در انبار ثبت گردید.`);
   document.getElementById('newBrand').value = '';
   document.getElementById('newModel').value = '';
   document.getElementById('newQty').value = '';
@@ -734,13 +797,12 @@ function switchPosCat(cat, el) {
 }
 
 function renderPosPicker() {
-  const q = document.getElementById('posSearch').value.toLowerCase();
+  const q = document.getElementById('posSearch').value;
   const list = products[activePosCat] || [];
-  const filtered = list.filter(i => 
-    (i.brand && i.brand.toLowerCase().includes(q)) || 
-    (i.enBrand && i.enBrand.toLowerCase().includes(q)) || 
-    (i.model && i.model.toLowerCase().includes(q))
-  );
+  const filtered = list.filter(i => {
+    const full = `${i.brand} ${i.enBrand || ''} ${i.model}`;
+    return matchTokens(full, q);
+  });
 
   const box = document.getElementById('posPicker');
   box.innerHTML = filtered.map(item => `
@@ -808,7 +870,7 @@ function submitCartInvoice() {
   if (!cart.length) { showAppAlert("سبد فاکتور خالی است."); return; }
   const pay = document.getElementById('posPayType').value;
   const debtor = document.getElementById('posDebtorName').value.trim();
-  if (pay === 'debt' && !debtor) { showAppAlert("لطفاً نام شخص بدهکار را در کادر بنویسید."); return; }
+  if (pay === 'debt' && !debtor) { showAppAlert("لطفاً نام مشتری بدهکار را بنویسید."); return; }
 
   const total = cart.reduce((s, i) => s + (i.sell * i.qty), 0);
   const profit = cart.reduce((s, i) => s + ((i.sell - i.buy) * i.qty), 0);
@@ -868,22 +930,18 @@ function renderInvoices() {
   `).join('');
 }
 
-// تابع حذف کامل یک فاکتور و برگرداندن کالا به انبار
 function deleteInvoice(id) {
   const idx = invoices.findIndex(i => i.id === id);
   if (idx === -1) return;
   const inv = invoices[idx];
 
-  showAppConfirm(`آیا از حذف فاکتور شماره #${inv.id} مطمئن هستید؟ اقلام فاکتور به انبار برگشت داده شده و حساب بدهی اصلاح می‌شود.`, function(confirmed) {
+  showAppConfirm(`آیا از حذف فاکتور شماره #${inv.id} مطمئن هستید؟ اقلام به انبار بازمی‌گردند.`, function(confirmed) {
     if (!confirmed) return;
-    
-    // برگرداندن اجناس به انبار
     inv.items.forEach(ci => {
       const p = (products[ci.cat] || []).find(item => item.id === ci.id || (item.brand === ci.brand && item.model === ci.model));
       if (p) p.stock += ci.qty;
     });
 
-    // کسر از حساب بدهکار در صورت نسیه بودن
     if (inv.pay === 'debt' && inv.debtor) {
       const dIdx = debtors.findIndex(d => d.name === inv.debtor);
       if (dIdx !== -1) {
@@ -896,23 +954,22 @@ function deleteInvoice(id) {
     save();
     renderInvoices();
     renderDash();
-    showAppAlert(`فاکتور #${id} با موفقیت حذف شد و موجودی به انبار بازگشت.`);
+    showAppAlert(`فاکتور #${id} حذف شد و موجودی به انبار بازگشت.`);
   });
 }
 
-// تابع حذف یکجای فاکتورها (پاکسازی آرشیو)
 function clearAllInvoices() {
   if (invoices.length === 0) {
     showAppAlert("هیچ فاکتوری برای حذف وجود ندارد.");
     return;
   }
-  showAppConfirm("هشدار: آیا می‌خواهید تمام فاکتورهای آرشیو را حذف کنید؟\n(موجودی کالاها تغییر نمی‌کند و فقط سابقه فاکتورها پاک خواهد شد)", function(confirmed) {
+  showAppConfirm("آیا می‌خواهید کل فاکتورها را پاک کنید؟\n(موجودی انبار دست‌نخورده باقی می‌ماند)", function(confirmed) {
     if (!confirmed) return;
     invoices = [];
     save();
     renderInvoices();
     renderDash();
-    showAppAlert("تمام فاکتورها از لیست حذف شدند.");
+    showAppAlert("تمام فاکتورها با موفقیت حذف شدند.");
   });
 }
 
@@ -924,13 +981,37 @@ function switchStockCat(cat, el) {
 }
 
 function renderStock() {
-  const titles = { cig: "سیگارها", tobacco: "تنباکو قلیان", hookah_coal: "قلیون و ذغال", lighter: "فندک‌ها", pipe: "توتون‌ها", perfume: "عود و ادکلن" };
-  document.getElementById('stockCatTitle').innerText = `موجودی ${titles[activeStockCat]}`;
+  const titles = { 
+    cig: "سیگارها", 
+    coffee: "انواع قهوه", 
+    hookah: "قلیان", 
+    hose: "شلنگ قلیان", 
+    mat: "زیرانداز قلیان", 
+    coal: "زغال", 
+    tobacco: "تنباکو قلیان", 
+    pipe: "توتون و سیگارپیچ", 
+    paper: "انواع پیپر و رول", 
+    ashtray: "زیرسیگاری", 
+    lighter: "فندک‌ها", 
+    keychain: "جاسوئیچی", 
+    candle: "شمع و جاشمعی", 
+    perfume: "عود و جاعودی", 
+    fragrance: "عطر و ادکلن", 
+    drink: "آب‌میوه و آب‌معدنی" 
+  };
+  document.getElementById('stockCatTitle').innerText = `موجودی ${titles[activeStockCat] || ''}`;
 
+  const q = document.getElementById('stockSearchInput').value;
   const wrap = document.getElementById('stockList');
   const list = products[activeStockCat] || [];
 
-  wrap.innerHTML = list.map((item, idx) => {
+  const filtered = list.filter(i => {
+    const full = `${i.brand} ${i.enBrand || ''} ${i.model}`;
+    return matchTokens(full, q);
+  });
+
+  wrap.innerHTML = filtered.map(item => {
+    const origIdx = list.findIndex(x => x.id === item.id);
     const marginVal = item.margin !== undefined ? item.margin : 15;
     return `
       <div class="item-row">
@@ -938,11 +1019,11 @@ function renderStock() {
           ${getLogoBadge(item)}
           <b>${item.brand}</b> <small>${item.model}</small>
         </div>
-        <div>خرید: <input type="number" value="${item.buy}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'buy', this.value)"></div>
-        <div>سود%: <input type="number" min="1" max="100" value="${marginVal}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'margin', this.value)"></div>
-        <div>فروش: <input type="number" value="${item.sell}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'sell', this.value)"></div>
-        <div>تعداد: <input type="number" value="${item.stock}" onchange="updateStockCell('${activeStockCat}', ${idx}, 'stock', this.value)"></div>
-        <button class="btn sm red" onclick="deleteProduct('${activeStockCat}', ${idx})">×</button>
+        <div>خرید: <input type="number" value="${item.buy}" onchange="updateStockCell('${activeStockCat}', ${origIdx}, 'buy', this.value)"></div>
+        <div>سود%: <input type="number" min="1" max="100" value="${marginVal}" onchange="updateStockCell('${activeStockCat}', ${origIdx}, 'margin', this.value)"></div>
+        <div>فروش: <input type="number" value="${item.sell}" onchange="updateStockCell('${activeStockCat}', ${origIdx}, 'sell', this.value)"></div>
+        <div>تعداد: <input type="number" value="${item.stock}" onchange="updateStockCell('${activeStockCat}', ${origIdx}, 'stock', this.value)"></div>
+        <button class="btn sm red" onclick="deleteProduct('${activeStockCat}', ${origIdx})">×</button>
       </div>
     `;
   }).join('');
@@ -1007,7 +1088,6 @@ function settleDebt(i) {
   });
 }
 
-// تولید تمپلیت شیک و استاندارد فاکتور چاپی با تاریخ، ساعت و خط جداساز
 function generateReceiptHtml(inv) {
   const fDate = inv.faDate || new Date(inv.date).toLocaleDateString('fa-IR');
   const payLabel = inv.pay === 'cash' ? 'نقدی / کارت‌خوان' : `نسیه (بدهکار: ${inv.debtor})`;
@@ -1131,7 +1211,7 @@ function checkWeeklyBackupReminder() {
 
 function exportData() {
   const timestamp = Date.now();
-  localStorage.setItem('osta_last_backup_v8', timestamp);
+  localStorage.setItem('osta_last_backup_v9', timestamp);
   lastBackupTime = timestamp;
 
   const blob = new Blob([JSON.stringify({ products, invoices, debtors, backupDate: new Date().toISOString() })], { type: 'application/json' });
